@@ -7,6 +7,7 @@ import Chateaux from "@/pages/Chateaux";
 import Home from "@/pages/Home";
 import Maison from "@/pages/Maison";
 import Outdoors from "@/pages/Outdoors";
+import Useful from "@/pages/Useful";
 import { Route, Switch } from "wouter";
 import ErrorBoundary from "./components/ErrorBoundary";
 import { ThemeProvider } from "./contexts/ThemeContext";
@@ -19,6 +20,7 @@ function Router() {
       <Route path="/chateaux" component={Chateaux} />
       <Route path="/autour-de-nous" component={Around} />
       <Route path="/balades" component={Outdoors} />
+      <Route path="/commerces-utiles" component={Useful} />
       <Route path="/404" component={NotFound} />
       <Route component={NotFound} />
     </Switch>
@@ -37,4 +39,3 @@ export default function App() {
     </ErrorBoundary>
   );
 }
-

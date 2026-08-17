@@ -54,3 +54,19 @@ Les renseignements de parcours sont présentés comme indicatifs : les visiteurs
 | Terroir | Maison des vins de Cheverny. | https://www.val-de-loire-41.com/degustation/maison-des-vins-de-cheverny-degcen0410001691/ |
 
 La carte précise les lieux et les départs de parcours ; elle renvoie vers les fiches officielles pour les tracés complets, conditions d’accès et mises à jour.
+
+## Commerces et lieux utiles — premiers repères vérifiés
+
+| Catégorie | Information vérifiée | Source |
+| --- | --- | --- |
+| Pharmacie | Pharmacie Lebegue-Ribault, 10 place Victor-Hugo, 41700 Cour-Cheverny ; tél. 02 54 79 96 04. | https://www.sante.fr/pharmacie-dofficine/cour-cheverny/pharmacie-lebegue-ribault |
+| Santé locale | La mairie de Cour-Cheverny publie une liste de professionnels et services de santé, incluant médecin généraliste, dentiste, infirmiers, kinésithérapeutes, ostéopathe et sages-femmes. | https://mairie-cour-cheverny.fr/vie-economique/ |
+| Commerces de proximité | La même liste municipale fait notamment apparaître une boulangerie, des cafés et bars, un tabac-presse, une banque, des artisans et des services automobile. | https://mairie-cour-cheverny.fr/vie-economique/ |
+
+La rubrique utile différenciera les adresses de proximité vérifiées et des accès à des recherches cartographiques actualisées pour élargir la recherche dans le rayon de 30 km, compte tenu de la mobilité des commerces et praticiens.
+
+| Catégorie | Information vérifiée | Source |
+| --- | --- | --- |
+| Maison de santé | Maison de Santé Universitaire, 36 route de Romorantin, 41700 Cheverny ; tél. 02 54 79 96 80. | https://mairie-cheverny.com/vie-pratique/numeros-utiles/ |
+| Établissement hospitalier | Centre Hospitalier Simone Veil de Blois, Mail Pierre Charlot, 41000 Blois ; standard 02 54 55 66 33. | https://ch-blois.com/ |
+| Urgence vitale | Les sources publiques Santé.fr et Centre Hospitalier Simone Veil indiquent le 15 pour les urgences vitales. | https://www.sante.fr/pharmacie-dofficine/cour-cheverny/pharmacie-lebegue-ribault ; https://ch-blois.com/ |

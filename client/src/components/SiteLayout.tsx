@@ -14,6 +14,7 @@ const links = [
   { href: "/chateaux", label: "Les châteaux" },
   { href: "/autour-de-nous", label: "À 30 km" },
   { href: "/balades", label: "À pied & à vélo" },
+  { href: "/commerces-utiles", label: "Commerces utiles" },
 ];
 
 export function BookingButton({ className = "" }: { className?: string }) {
@@ -117,4 +118,3 @@ export default function SiteLayout({ children }: { children: ReactNode }) {
     </div>
   );
 }
-
