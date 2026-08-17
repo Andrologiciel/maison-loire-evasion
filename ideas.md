@@ -71,6 +71,12 @@ Le symbole est une **maison de vigneron schématisée**, dont le toit se prolong
 
 **Ocre des Vendanges — #B75D31.** Une terre cuite dense, réservée aux gestes d’action, aux repères de parcours et aux détails identitaires.
 
+## Style Decisions
+
+- La ligne de promenade ocre est un motif récurrent : elle relie les séquences éditoriales par des jalons, numéros, repères géographiques et filets discrets inspirés des carnets de route.
+- Les distances, durées et catégories prennent la forme de tampons de carnet ou d’étiquettes de cave, avec petites capitales espacées et ocre des Vendanges.
+- Le mot-symbole « La Maison Vigneronne » associe une serif éditoriale, des petites capitales discrètes et le symbole maison/vigne/chemin visible dès l’en-tête.
+
 ## Informations source à préserver
 
 - Annonce Airbnb : « Maison vigneronne proche Cheverny, Blois, Chambord ».

@@ -42,3 +42,15 @@ Les renseignements de parcours sont présentés comme indicatifs : les visiteurs
 
 - Photographies publiques de la maison : extérieur, salon, terrasse, salle à manger et façade, téléchargées depuis l’annonce communiquée par la propriétaire.
 - Visuels sur mesure : paysage viticole de Loire, château imaginaire à usage éditorial, itinéraire cyclable, chemin de randonnée et symbole de marque. Les créations ne remplacent pas les photographies de la maison et ne prétendent pas illustrer un château réel précis.
+
+## Carte interactive — périmètre retenu
+
+| Catégorie | Éléments représentés | Référence de préparation |
+| --- | --- | --- |
+| Point de départ | Cour-Cheverny, repère public de la maison sans divulguer d’adresse précise. | https://www.bloischambord.com/en/tours-and-activities/our-heritage/cour-cheverny-cour-cheverny-en-1538130/ |
+| Châteaux | Cheverny, Chambord, Blois, Beauregard, Villesavin et Troussay. | Pages officielles des domaines et sélection Val de Loire 41. |
+| Randonnées | Départs de Cour-Cheverny–Jouvançay, des Bruyères de Sérigny et du Circuit du Château. | https://www.bloischambord.com/visites-et-activites/balades-et-visites/rando-cour-cheverny-jouvancay-cour-cheverny-fr-5395609/ |
+| Vélo | Repères des boucles « Ombres & Lumières », « Entre Vignobles & Châteaux » et « Au Royaume du Cerf ». | https://bloischambord.com/decouvrir-la-destination/chateaux-de-la-loire-a-velo/les-parcours/autour-de-cheverny/ |
+| Terroir | Maison des vins de Cheverny. | https://www.val-de-loire-41.com/degustation/maison-des-vins-de-cheverny-degcen0410001691/ |
+
+La carte précise les lieux et les départs de parcours ; elle renvoie vers les fiches officielles pour les tracés complets, conditions d’accès et mises à jour.

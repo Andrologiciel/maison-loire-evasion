@@ -3,6 +3,7 @@
  * des invitations à partir doucement, avec des données pratiques et des liens sources clairs.
  */
 import { ArrowUpRight, Bike, Footprints, Route, ShieldAlert } from "lucide-react";
+import InteractiveMap from "@/components/InteractiveMap";
 import PageHero from "@/components/PageHero";
 import SiteLayout from "@/components/SiteLayout";
 
@@ -34,6 +35,8 @@ export default function Outdoors() {
         <div><p className="eyebrow">Le bon départ</p><h2>Les itinéraires prennent la forme d’une promenade.</h2></div>
         <p>La maison se trouve à proximité des pistes cyclables et du balisage local. Pour une trace, un équipement ou les conditions actualisées, les liens renvoient directement aux pages des offices de tourisme.</p>
       </section>
+
+      <InteractiveMap />
 
       <section className="outdoor-split">
         <div className="activity-side cycling-side">
@@ -76,4 +79,3 @@ export default function Outdoors() {
     </SiteLayout>
   );
 }
-

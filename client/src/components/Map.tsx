@@ -1,4 +1,7 @@
 /**
+ * Direction « Carnet de terroir » : composant technique de carte, sobre et fiable,
+ * au service des repères de voyage du site.
+ *
  * GOOGLE MAPS FRONTEND INTEGRATION - ESSENTIAL GUIDE
  *
  * USAGE FROM PARENT COMPONENT:
@@ -76,7 +79,7 @@
 
 /// <reference types="@types/google.maps" />
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { usePersistFn } from "@/hooks/usePersistFn";
 import { cn } from "@/lib/utils";
 
@@ -91,22 +94,43 @@ const FORGE_BASE_URL =
   import.meta.env.VITE_FRONTEND_FORGE_API_URL ||
   "https://forge.butterfly-effect.dev";
 const MAPS_PROXY_URL = `${FORGE_BASE_URL}/v1/maps/proxy`;
+let mapsScriptPromise: Promise<void> | null = null;
 
-function loadMapScript() {
-  return new Promise(resolve => {
+function loadMapScript(): Promise<void> {
+  if (window.google?.maps) return Promise.resolve();
+  if (mapsScriptPromise) return mapsScriptPromise;
+
+  mapsScriptPromise = new Promise<void>((resolve, reject) => {
+    const existingScript = document.querySelector<HTMLScriptElement>(
+      "script[data-manus-google-maps]",
+    );
+    if (existingScript) {
+      existingScript.addEventListener("load", () => {
+        if (window.google?.maps) resolve();
+        else reject(new Error("Google Maps n’a pas été initialisé."));
+      }, { once: true });
+      existingScript.addEventListener("error", () => reject(new Error("Le script Google Maps n’a pas pu être chargé.")), { once: true });
+      return;
+    }
+
     const script = document.createElement("script");
     script.src = `${MAPS_PROXY_URL}/maps/api/js?key=${API_KEY}&v=weekly&libraries=marker,places,geocoding,geometry`;
     script.async = true;
-    script.crossOrigin = "anonymous";
+    script.dataset.manusGoogleMaps = "true";
     script.onload = () => {
-      resolve(null);
-      script.remove(); // Clean up immediately
+      if (window.google?.maps) resolve();
+      else reject(new Error("Google Maps n’a pas été initialisé."));
     };
     script.onerror = () => {
-      console.error("Failed to load Google Maps script");
+      reject(new Error("Le script Google Maps n’a pas pu être chargé."));
     };
     document.head.appendChild(script);
   });
+
+  mapsScriptPromise.catch(() => {
+    mapsScriptPromise = null;
+  });
+  return mapsScriptPromise;
 }
 
 interface MapViewProps {
@@ -124,24 +148,27 @@ export function MapView({
 }: MapViewProps) {
   const mapContainer = useRef<HTMLDivElement>(null);
   const map = useRef<google.maps.Map | null>(null);
+  const [loadError, setLoadError] = useState(false);
 
   const init = usePersistFn(async () => {
-    await loadMapScript();
-    if (!mapContainer.current) {
-      console.error("Map container not found");
-      return;
-    }
-    map.current = new window.google.maps.Map(mapContainer.current, {
-      zoom: initialZoom,
-      center: initialCenter,
-      mapTypeControl: true,
-      fullscreenControl: true,
-      zoomControl: true,
-      streetViewControl: true,
-      mapId: "DEMO_MAP_ID",
-    });
-    if (onMapReady) {
-      onMapReady(map.current);
+    try {
+      await loadMapScript();
+      if (!mapContainer.current || !window.google?.maps) {
+        setLoadError(true);
+        return;
+      }
+      map.current = new window.google.maps.Map(mapContainer.current, {
+        zoom: initialZoom,
+        center: initialCenter,
+        mapTypeControl: true,
+        fullscreenControl: true,
+        zoomControl: true,
+        streetViewControl: true,
+      });
+      onMapReady?.(map.current);
+    } catch (error) {
+      console.error("Impossible de charger la carte", error);
+      setLoadError(true);
     }
   });
 
@@ -150,6 +177,13 @@ export function MapView({
   }, [init]);
 
   return (
-    <div ref={mapContainer} className={cn("w-full h-[500px]", className)} />
+    <div className={cn("relative w-full h-[500px]", className)}>
+      <div ref={mapContainer} className="h-full w-full" />
+      {loadError && (
+        <div className="absolute inset-0 grid place-items-center bg-[#dfe6db] p-6 text-center text-sm text-[#315444]">
+          La carte ne peut pas être chargée pour le moment. Les liens de parcours restent disponibles ci-dessous.
+        </div>
+      )}
+    </div>
   );
 }
