@@ -2,9 +2,10 @@
  * Direction « Carnet de terroir » : repères de chemin ocre, typographie éditoriale,
  * hospitalité sereine. Cette structure relie la maison et le territoire.
  */
-import { ArrowUpRight, Menu, X } from "lucide-react";
+import { ArrowUpRight, Menu, Search, X } from "lucide-react";
 import { useState, type ReactNode } from "react";
 import { Link, useLocation } from "wouter";
+import SearchOverlay from "@/components/SearchOverlay";
 
 const bookingHref =
   "https://www.airbnb.fr/rooms/1699452930737491401?guests=1&adults=1&s=67&unique_share_id=b01cc512-b461-47f1-b82d-398ff4faddf4";
@@ -15,6 +16,8 @@ const links = [
   { href: "/autour-de-nous", label: "À 30 km" },
   { href: "/balades", label: "À pied & à vélo" },
   { href: "/commerces-utiles", label: "Commerces utiles" },
+  { href: "/idees-de-sejour", label: "Idées de séjour" },
+  { href: "/loisirs", label: "Loisirs" },
 ];
 
 export function BookingButton({ className = "" }: { className?: string }) {
@@ -25,13 +28,14 @@ export function BookingButton({ className = "" }: { className?: string }) {
       target="_blank"
       rel="noreferrer"
     >
-      Voir les disponibilités <ArrowUpRight size={15} strokeWidth={2.2} />
+      Préparer votre séjour <ArrowUpRight size={15} strokeWidth={2.2} />
     </a>
   );
 }
 
 export default function SiteLayout({ children }: { children: ReactNode }) {
   const [isOpen, setIsOpen] = useState(false);
+  const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [location] = useLocation();
 
   return (
@@ -62,6 +66,7 @@ export default function SiteLayout({ children }: { children: ReactNode }) {
             ))}
           </nav>
 
+          <button type="button" className="header-search" onClick={() => setIsSearchOpen(true)} aria-label="Rechercher dans le site"><Search size={17} /></button>
           <BookingButton className="desktop-booking" />
 
           <button
@@ -90,10 +95,13 @@ export default function SiteLayout({ children }: { children: ReactNode }) {
                 </Link>
               ))}
             </nav>
+            <button type="button" className="mobile-search" onClick={() => { setIsOpen(false); setIsSearchOpen(true); }}><Search size={16} /> Rechercher dans le site</button>
             <BookingButton className="mobile-booking" />
           </div>
         )}
       </header>
+
+      {isSearchOpen && <SearchOverlay onClose={() => setIsSearchOpen(false)} />}
 
       <main>{children}</main>
 

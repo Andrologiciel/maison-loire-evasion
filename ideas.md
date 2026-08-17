@@ -76,6 +76,8 @@ Le symbole est une **maison de vigneron schématisée**, dont le toit se prolong
 - La ligne de promenade ocre est un motif récurrent : elle relie les séquences éditoriales par des jalons, numéros, repères géographiques et filets discrets inspirés des carnets de route.
 - Les distances, durées et catégories prennent la forme de tampons de carnet ou d’étiquettes de cave, avec petites capitales espacées et ocre des Vendanges.
 - Le mot-symbole « La Maison Vigneronne » associe une serif éditoriale, des petites capitales discrètes et le symbole maison/vigne/chemin visible dès l’en-tête.
+- Les pages de loisirs évitent toute grille catalogue uniforme : elles se lisent comme une succession de jalons, de haltes et de notes de carnet, avec des formats hiérarchisés.
+- Les images sont employées comme un motif éditorial volontaire et non comme un remplissage de carte ; les sections pratiques privilégient symboles, filets et tampons de parcours.
 
 ## Informations source à préserver
 

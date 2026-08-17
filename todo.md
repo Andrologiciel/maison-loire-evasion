@@ -12,3 +12,11 @@
 - [x] Ajouter la page et son accès dans la navigation principale.
 - [x] Créer une carte filtrable et des fiches pratiques de lieux utiles.
 - [x] Vérifier la nouvelle page sur ordinateur et mobile.
+
+# Recherche, idées de séjour et loisirs — suivi
+
+- [x] Vérifier les lieux de baignade, le ZooParc de Beauval, le canoë et les autres loisirs pertinents.
+- [x] Rédiger les idées de séjour par durée et par envie.
+- [x] Ajouter les pages Loisirs et Idées de séjour, avec leurs accès dans la navigation.
+- [x] Créer la recherche globale et les résultats associés.
+- [x] Vérifier les nouveaux parcours sur ordinateur et mobile.

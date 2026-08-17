@@ -70,3 +70,22 @@ La rubrique utile différenciera les adresses de proximité vérifiées et des a
 | Maison de santé | Maison de Santé Universitaire, 36 route de Romorantin, 41700 Cheverny ; tél. 02 54 79 96 80. | https://mairie-cheverny.com/vie-pratique/numeros-utiles/ |
 | Établissement hospitalier | Centre Hospitalier Simone Veil de Blois, Mail Pierre Charlot, 41000 Blois ; standard 02 54 55 66 33. | https://ch-blois.com/ |
 | Urgence vitale | Les sources publiques Santé.fr et Centre Hospitalier Simone Veil indiquent le 15 pour les urgences vitales. | https://www.sante.fr/pharmacie-dofficine/cour-cheverny/pharmacie-lebegue-ribault ; https://ch-blois.com/ |
+
+## Loisirs et idées de séjour — sources vérifiées
+
+| Thème | Information retenue | Source |
+| --- | --- | --- |
+| Baignade | Le tourisme du Loir-et-Cher recense notamment la baignade naturelle du Grand Chambord à Mont-près-Chambord, le Centre aquatique Grand Chambord et des piscines autour de Beauval. | https://www.val-de-loire-41.com/a-voir-a-faire/en-famille/piscines-et-lieux-de-baignade/ |
+| ZooParc de Beauval | Le site officiel présente un parc de 24 territoires, plus de 35 000 animaux, des animations et des hébergements associés ; il convient de vérifier les horaires et billets avant la visite. | https://www.zoobeauval.com/ |
+| Canoë sur le Cher | Une activité canoë sur le Cher est proposée au départ notamment de Chissay, Chisseaux et Montrichard, avec des parcours vers Chenonceaux et un accueil famille annoncé par le prestataire référencé. | https://www.val-de-loire-41.com/activite/aventure-canoe-sur-le-cher-asc41aaact100936/ |
+| Loisirs famille | Le tourisme du Loir-et-Cher met en avant, en complément de Beauval et du canoë, les visites ludiques de châteaux, les balades avec âne, les fermes pédagogiques, les ateliers chocolatés et les activités aquatiques. | https://www.val-de-loire-41.com/inspirations/vacances-en-famille/top-activites/ |
+
+Les temps de trajet, jours d’ouverture, niveaux d’eau, conditions de baignade et disponibilités doivent toujours être contrôlés directement sur les sites des prestataires avant le départ.
+
+## Architecture éditoriale — nouvelles découvertes
+
+| Rubrique | Structure retenue | Intention |
+| --- | --- | --- |
+| Idées de séjour | Filtres par durée — week-end, 3 jours, une semaine, deux semaines, trois semaines et plus — et par envie — repos, détente, visites, famille, nature et vélo. | Aider chaque voyageur à composer un programme réaliste sans sacrifier les temps à la maison. |
+| Loisirs | Filtres eau, famille, nature et activités, avec Beauval, canoë sur le Cher, baignade du Grand Chambord, centre aquatique et équitation. | Donner accès aux grands temps forts et aux sorties au grand air, avec renvoi vers les sources actualisées. |
+| Recherche | Recherche locale accessible depuis l’en-tête, couvrant l’hébergement, les châteaux, loisirs, itinéraires, commerces, santé et idées de séjour. | Permettre un accès rapide à la bonne rubrique, sur toute taille d’écran. |
