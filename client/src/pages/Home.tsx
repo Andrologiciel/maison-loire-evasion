@@ -4,166 +4,123 @@
  */
 import {
   ArrowRight,
-  Bath,
-  BedDouble,
-  Bike,
-  Castle,
   ChevronRight,
   MapPin,
-  TreePine,
-  Users,
-  Wine,
 } from "lucide-react";
 import { Link } from "wouter";
 import SiteLayout, { ReservationButtons } from "@/components/SiteLayout";
-import siteContent from "@/content/site.json";
-
-const details = [
-  { icon: Users, value: "8", label: "voyageurs" },
-  { icon: BedDouble, value: "4", label: "chambres" },
-  { icon: Bath, value: "2", label: "salles de bain" },
-  { icon: TreePine, value: "700 m²", label: "de jardin clos" },
-];
-
-const directions = [
-  {
-    to: "/chateaux",
-    number: "01",
-    icon: Castle,
-    title: "Les châteaux en majesté",
-    copy: "Cheverny à pied, Chambord à vélo, Blois et de précieux domaines plus secrets.",
-  },
-  {
-    to: "/autour-de-nous",
-    number: "02",
-    icon: Wine,
-    title: "Dans un rayon de 30 km",
-    copy: "Vignobles, villages, jardins, patrimoine et haltes gourmandes pour choisir chaque journée.",
-  },
-  {
-    to: "/balades",
-    number: "03",
-    icon: Bike,
-    title: "À pied, à vélo, à son rythme",
-    copy: "Routes tranquilles, chemins de Sologne et boucles officielles au départ de Cheverny.",
-  },
-];
+import content from "@/content/home.json";
+import { contentIcon } from "@/lib/contentIcons";
 
 export default function Home() {
   return (
     <SiteLayout>
       <section className="home-hero">
         <div className="hero-intro">
-          <p className="eyebrow"><span>41700</span> Cour-Cheverny · Val de Loire</p>
-          <h1>{siteContent.home.title}</h1>
-          <p className="hero-lead">
-            {siteContent.home.introduction}
-          </p>
+          <p className="eyebrow"><span>{content.hero.postalCode}</span> {content.hero.location}</p>
+          <h1>{content.hero.title}</h1>
+          <p className="hero-lead">{content.hero.introduction}</p>
           <div className="hero-actions">
             <ReservationButtons />
-            <a className="text-link" href="#maison">Découvrir la maison <ArrowRight size={16} /></a>
+            <a className="text-link" href="#maison">{content.hero.discoveryLabel} <ArrowRight size={16} /></a>
           </div>
-          <p className="hero-mini-note">À 10 min à pied du château de Cheverny</p>
+          <p className="hero-mini-note">{content.hero.note}</p>
         </div>
 
         <div className="hero-photo-stack" aria-label="Aperçu de la maison">
           <img
             className="hero-photo-main"
-            src="/manus-storage/maison-exterieur_57eb8c38.jpg"
-            alt="La façade et le jardin de la Maison Vigneronne"
+            src={content.hero.mainImage}
+            alt={content.hero.mainImageAlt}
           />
           <figure className="hero-vignette">
             <img
-              src="/manus-storage/loire-vineyard-hero_0ede957b.jpg"
-              alt="Paysage de vignes du Val de Loire"
+              src={content.hero.vignetteImage}
+              alt={content.hero.vignetteImageAlt}
             />
-            <figcaption>Au cœur des vignes de Cheverny</figcaption>
+            <figcaption>{content.hero.vignetteCaption}</figcaption>
           </figure>
           <div className="hero-stamp">
-            <span>{siteContent.home.badgeLine1}<br />{siteContent.home.badgeLine2}<br />{siteContent.home.badgeLine3}</span>
+            <span>{content.hero.badgeLine1}<br />{content.hero.badgeLine2}<br />{content.hero.badgeLine3}</span>
           </div>
         </div>
       </section>
 
       <section id="maison" className="amenities-band">
-        <p className="eyebrow">La maison en quelques mots</p>
+        <p className="eyebrow">{content.amenitiesLabel}</p>
         <div className="amenities-grid">
-          {details.map(({ icon: Icon, value, label }) => (
+          {content.amenities.map(({ icon, value, label }) => {
+            const Icon = contentIcon(icon);
+            return (
             <div className="amenity" key={label}>
               <Icon size={18} strokeWidth={1.7} />
               <strong>{value}</strong>
               <span>{label}</span>
             </div>
-          ))}
+          );})}
         </div>
       </section>
 
       <section className="story-section">
         <div className="story-aside">
-          <p className="vertical-note">La maison · le jardin · les vignes</p>
+          <p className="vertical-note">{content.story.verticalNote}</p>
           <div className="story-marker"><span>01</span></div>
         </div>
         <div className="story-image">
-          <img src="/manus-storage/maison-salon_4bae837c.jpg" alt="Salon chaleureux de la maison" />
+          <img src={content.story.image} alt={content.story.imageAlt} />
         </div>
         <div className="story-copy">
-          <p className="eyebrow">Un lieu pour se retrouver</p>
-          <h2>Des volumes pour les grandes tablées, des recoins pour souffler.</h2>
-          <p>
-            Les 160 m² de la maison accueillent les séjours qui prennent le temps : un salon convivial, une grande salle à manger, une cuisine très équipée et un espace détente à l’étage, jusqu’à la borne d’arcade pour les retours de visite.
-          </p>
-          <p>
-            Dehors, le jardin arboré et entièrement clos accompagne les petits-déjeuners au soleil, les parties de pétanque et les fins d’après-midi sans programme.
-          </p>
-          <Link href="/maison" className="arrow-link">Visiter la maison <ChevronRight size={18} /></Link>
+          <p className="eyebrow">{content.story.kicker}</p>
+          <h2>{content.story.title}</h2>
+          {content.story.paragraphs.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}
+          <Link href="/maison" className="arrow-link">{content.story.linkLabel} <ChevronRight size={18} /></Link>
         </div>
       </section>
 
       <section className="portrait-grid-section">
         <div className="portrait-image tall-image">
-          <img src="/manus-storage/maison-terrasse_f42d2c07.jpg" alt="Terrasse de la maison ensoleillée" />
-          <p>Le matin, la cour ; le soir, le jardin.</p>
+          <img src={content.territory.largeImage} alt={content.territory.largeImageAlt} />
+          <p>{content.territory.largeImageCaption}</p>
         </div>
         <div className="territory-manifesto">
-          <p className="eyebrow"><MapPin size={14} /> Le bon point de départ</p>
-          <h2>Sortir, découvrir,<br /><em>revenir doucement.</em></h2>
-          <p>
-            Ici, les grandes visites ne demandent pas de renoncer aux plaisirs simples. Cheverny se rejoint à pied, Chambord s’atteint par une agréable piste cyclable et les commerces du bourg restent tout proches.
-          </p>
-          <Link className="underline-link" href="/autour-de-nous">Explorer les alentours</Link>
+          <p className="eyebrow"><MapPin size={14} /> {content.territory.kicker}</p>
+          <h2>{content.territory.title}</h2>
+          <p>{content.territory.text}</p>
+          <Link className="underline-link" href="/autour-de-nous">{content.territory.linkLabel}</Link>
         </div>
         <div className="portrait-image small-image">
-          <img src="/manus-storage/maison-salle-a-manger_55bd9810.jpg" alt="Salle à manger de la Maison Vigneronne" />
+          <img src={content.territory.smallImage} alt={content.territory.smallImageAlt} />
         </div>
       </section>
 
       <section className="route-section">
         <div className="route-heading">
-          <p className="eyebrow">Composer votre séjour</p>
-          <h2>Chaque jour, une nouvelle échappée.</h2>
-          <p>Trois façons de partir de la maison, sans jamais être loin de ce qui compte.</p>
+          <p className="eyebrow">{content.routes.kicker}</p>
+          <h2>{content.routes.title}</h2>
+          <p>{content.routes.introduction}</p>
         </div>
         <div className="route-list">
-          {directions.map(({ to, number, icon: Icon, title, copy }) => (
-            <Link href={to} className="route-item" key={number}>
-              <span className="route-number">{number}</span>
+          {content.routes.items.map(({ to, icon, title, text }, index) => {
+            const Icon = contentIcon(icon);
+            return (<Link href={to} className="route-item" key={to}>
+              <span className="route-number">{String(index + 1).padStart(2, "0")}</span>
               <Icon className="route-icon" size={25} strokeWidth={1.5} />
               <div>
                 <h3>{title}</h3>
-                <p>{copy}</p>
+                <p>{text}</p>
               </div>
               <ArrowRight className="route-arrow" size={20} />
-            </Link>
-          ))}
+            </Link>);
+          })}
         </div>
       </section>
 
       <section className="home-cta">
-        <img src="/manus-storage/maison-facade_71465e76.jpg" alt="Façade lumineuse de la maison" />
+        <img src={content.cta.image} alt={content.cta.imageAlt} />
         <div className="home-cta-overlay" />
         <div className="home-cta-copy">
-          <p className="eyebrow">Le séjour peut commencer</p>
-          <h2>Choisissez votre date,<br />nous préparons la maison.</h2>
+          <p className="eyebrow">{content.cta.kicker}</p>
+          <h2>{content.cta.title}</h2>
           <ReservationButtons />
         </div>
       </section>

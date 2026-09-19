@@ -2,6 +2,11 @@
 
 Ce guide correspond au domaine `cheverny.andrologiciels.com`, à NGINX 1.24 et au serveur Node.js du projet sur le port 3000.
 
+La version actuelle de Decap expose toutes les pages dans **Pages du site**, les
+réglages globaux dans **Réglages du site** et permet d’ajouter des pages avec
+**Pages supplémentaires**. Les nouvelles pages rejoignent automatiquement le menu
+et la recherche lors de la reconstruction qui suit leur publication.
+
 ## 1. Mettre cette version sur GitHub
 
 Decap modifie les fichiers du dépôt GitHub. Cette version doit donc être présente sur la branche `main` du dépôt :

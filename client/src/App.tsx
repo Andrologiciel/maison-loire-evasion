@@ -10,6 +10,7 @@ import Outdoors from "@/pages/Outdoors";
 import Leisure from "@/pages/Leisure";
 import Stays from "@/pages/Stays";
 import Useful from "@/pages/Useful";
+import CustomPage from "@/pages/CustomPage";
 import { Route, Switch } from "wouter";
 import ErrorBoundary from "./components/ErrorBoundary";
 import { ThemeProvider } from "./contexts/ThemeContext";
@@ -26,6 +27,7 @@ function Router() {
       <Route path="/idees-de-sejour" component={Stays} />
       <Route path="/loisirs" component={Leisure} />
       <Route path="/404" component={NotFound} />
+      <Route path="/:slug">{(params) => <CustomPage slug={params.slug} />}</Route>
       <Route component={NotFound} />
     </Switch>
   );

@@ -10,6 +10,7 @@ type PageHeroProps = {
   description: string;
   image: string;
   imageAlt: string;
+  imageCaption?: string;
   index: string;
 };
 
@@ -19,6 +20,7 @@ export default function PageHero({
   description,
   image,
   imageAlt,
+  imageCaption = "Le Val de Loire, au fil des saisons",
   index,
 }: PageHeroProps) {
   return (
@@ -35,9 +37,8 @@ export default function PageHero({
       </div>
       <div className="page-hero-image-wrap">
         <img className="page-hero-image" src={image} alt={imageAlt} />
-        <span className="image-caption">Le Val de Loire, au fil des saisons</span>
+        <span className="image-caption">{imageCaption}</span>
       </div>
     </section>
   );
 }
-

@@ -1,0 +1,64 @@
+{
+  "hero": {
+    "postalCode": "41700",
+    "location": "Cour-Cheverny · Val de Loire",
+    "title": "Une maison de caractère où le Loir-et-Cher se vit entre châteaux et nature",
+    "introduction": "Une maison du XIXᵉ siècle, lumineuse et généreuse, pour se retrouver en famille ou entre amis au cœur des châteaux et des vignobles.",
+    "discoveryLabel": "Découvrir la maison",
+    "note": "À 10 min à pied du château de Cheverny",
+    "mainImage": "/manus-storage/maison-exterieur_57eb8c38.jpg",
+    "mainImageAlt": "La façade et le jardin de la Maison Vigneronne",
+    "vignetteImage": "/manus-storage/loire-vineyard-hero_0ede957b.jpg",
+    "vignetteImageAlt": "Paysage de vignes du Val de Loire",
+    "vignetteCaption": "Au cœur des vignes de Cheverny",
+    "badgeLine1": "Maison",
+    "badgeLine2": "vigneronne",
+    "badgeLine3": "de 1850"
+  },
+  "amenitiesLabel": "La maison en quelques mots",
+  "amenities": [
+    { "icon": "users", "value": "8", "label": "voyageurs" },
+    { "icon": "bed", "value": "4", "label": "chambres" },
+    { "icon": "bath", "value": "2", "label": "salles de bain" },
+    { "icon": "tree", "value": "700 m²", "label": "de jardin clos" }
+  ],
+  "story": {
+    "verticalNote": "La maison · le jardin · les vignes",
+    "image": "/manus-storage/maison-salon_4bae837c.jpg",
+    "imageAlt": "Salon chaleureux de la maison",
+    "kicker": "Un lieu pour se retrouver",
+    "title": "Des volumes pour les grandes tablées, des recoins pour souffler.",
+    "paragraphs": [
+      "Les 160 m² de la maison accueillent les séjours qui prennent le temps : un salon convivial, une grande salle à manger, une cuisine très équipée et un espace détente à l’étage, jusqu’à la borne d’arcade pour les retours de visite.",
+      "Dehors, le jardin arboré et entièrement clos accompagne les petits-déjeuners au soleil, les parties de pétanque et les fins d’après-midi sans programme."
+    ],
+    "linkLabel": "Visiter la maison"
+  },
+  "territory": {
+    "largeImage": "/manus-storage/maison-terrasse_f42d2c07.jpg",
+    "largeImageAlt": "Terrasse de la maison ensoleillée",
+    "largeImageCaption": "Le matin, la cour ; le soir, le jardin.",
+    "kicker": "Le bon point de départ",
+    "title": "Sortir, découvrir, revenir doucement.",
+    "text": "Ici, les grandes visites ne demandent pas de renoncer aux plaisirs simples. Cheverny se rejoint à pied, Chambord s’atteint par une agréable piste cyclable et les commerces du bourg restent tout proches.",
+    "linkLabel": "Explorer les alentours",
+    "smallImage": "/manus-storage/maison-salle-a-manger_55bd9810.jpg",
+    "smallImageAlt": "Salle à manger de la Maison Vigneronne"
+  },
+  "routes": {
+    "kicker": "Composer votre séjour",
+    "title": "Chaque jour, une nouvelle échappée.",
+    "introduction": "Trois façons de partir de la maison, sans jamais être loin de ce qui compte.",
+    "items": [
+      { "to": "/chateaux", "icon": "castle", "title": "Les châteaux en majesté", "text": "Cheverny à pied, Chambord à vélo, Blois et de précieux domaines plus secrets." },
+      { "to": "/autour-de-nous", "icon": "wine", "title": "Dans un rayon de 30 km", "text": "Vignobles, villages, jardins, patrimoine et haltes gourmandes pour choisir chaque journée." },
+      { "to": "/balades", "icon": "bike", "title": "À pied, à vélo, à son rythme", "text": "Routes tranquilles, chemins de Sologne et boucles officielles au départ de Cheverny." }
+    ]
+  },
+  "cta": {
+    "image": "/manus-storage/maison-facade_71465e76.jpg",
+    "imageAlt": "Façade lumineuse de la maison",
+    "kicker": "Le séjour peut commencer",
+    "title": "Choisissez votre date, nous préparons la maison."
+  }
+}

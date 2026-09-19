@@ -2,7 +2,7 @@
  * Direction « Carnet de terroir » : parchemin minéral, verts de sous-bois et ocre des vendanges.
  * Éditorial patrimonial contemporain : beaucoup d’air, une ligne de chemin et des gestes nets.
  */
-@import url('https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&family=Lato:wght@400;700&family=Libre+Baskerville:wght@400;700&family=Open+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&family=Source+Sans+3:wght@400;500;600;700&display=swap');
 @import "tailwindcss";
 @import "tw-animate-css";
 
@@ -63,26 +63,47 @@
   --ochre: #b75d31;
   --soft-ochre: #d78d55;
   --line: #cbc1b0;
+  --font-heading: "Fraunces", Georgia, serif;
+  --font-body: "DM Sans", Arial, sans-serif;
 }
 
 * { box-sizing: border-box; }
 html { scroll-behavior: smooth; }
-body { margin: 0; background: var(--paper); color: var(--ink); font-family: "DM Sans", sans-serif; font-size: 16px; line-height: 1.55; }
+body { margin: 0; background: var(--paper); color: var(--ink); font-family: var(--font-body); font-size: 16px; line-height: 1.55; }
 a { color: inherit; text-decoration: none; }
 button, a { -webkit-tap-highlight-color: transparent; }
 button:focus-visible, a:focus-visible { outline: 2px solid var(--ochre); outline-offset: 4px; }
 img { display: block; max-width: 100%; }
 h1, h2, h3, p { margin: 0; }
-h1, h2, h3 { font-family: "Fraunces", Georgia, serif; font-weight: 600; line-height: 1.02; letter-spacing: -0.035em; }
+h1, h2, h3 { font-family: var(--font-heading); font-weight: 600; line-height: 1.02; letter-spacing: -0.035em; }
 sup { font-size: 0.53em; }
 
-.site-shell { overflow: hidden; }
+.custom-page-sections { width: min(1170px, calc(100% - 80px)); margin: 20px auto 135px; }
+.custom-page-section { display: grid; gap: clamp(35px, 7vw, 100px); align-items: center; padding: 75px 0; border-bottom: 1px solid var(--line); }
+.custom-page-section.with-image { grid-template-columns: minmax(280px, .95fr) minmax(320px, 1.05fr); }
+.custom-page-section.image-left img { order: 0; }
+.custom-page-section.image-left > div { order: 1; }
+.custom-page-section.image-right img { order: 1; }
+.custom-page-section.image-right > div { order: 0; }
+.custom-page-section.image-full { display: block; }
+.custom-page-section.image-full img { width: 100%; max-height: 620px; margin-bottom: 40px; object-fit: cover; }
+.custom-page-section.text-only { grid-template-columns: 1fr; max-width: 780px; margin: auto; }
+.custom-page-section > img { width: 100%; max-height: 520px; object-fit: cover; }
+.custom-page-section h2 { margin: 18px 0 24px; font-size: clamp(2.35rem, 4vw, 4rem); }
+.custom-page-section div > p:not(.eyebrow) { margin: 0 0 17px; color: #536258; white-space: pre-line; }
+.custom-page-section .underline-link { margin-top: 15px; }
+
+.site-shell { overflow: hidden; font-family: var(--font-body); }
+.site-shell.body-size-small p:not(.eyebrow), .site-shell.body-size-small li { zoom: .94; }
+.site-shell.body-size-large p:not(.eyebrow), .site-shell.body-size-large li { zoom: 1.08; }
+.site-shell.heading-size-small h1, .site-shell.heading-size-small h2, .site-shell.heading-size-small h3 { zoom: .9; }
+.site-shell.heading-size-large h1, .site-shell.heading-size-large h2, .site-shell.heading-size-large h3 { zoom: 1.1; }
 .site-header { position: sticky; top: 0; z-index: 30; background: color-mix(in srgb, var(--paper) 92%, transparent); border-bottom: 1px solid color-mix(in srgb, var(--ink) 14%, transparent); backdrop-filter: blur(14px); }
 .header-inner { display: flex; align-items: center; justify-content: space-between; width: min(1450px, calc(100% - 48px)); min-height: 78px; margin: auto; }
 .brand { position: relative; display: inline-flex; align-items: center; gap: 11px; }
 .brand::after { width: 5px; height: 5px; margin-left: 3px; border-radius: 50%; background: var(--ochre); content: ""; }
 .brand-mark { width: 47px; height: 47px; object-fit: contain; }
-.brand-copy { display: grid; font-family: "Fraunces", Georgia, serif; font-size: 13px; line-height: 0.85; letter-spacing: -0.035em; }
+.brand-copy { display: grid; font-family: var(--font-heading); font-size: 13px; line-height: 0.85; letter-spacing: -0.035em; }
 .brand-copy strong { font-size: 17px; font-weight: 600; }
 .desktop-nav { display: flex; align-items: center; gap: clamp(11px, 1.2vw, 20px); margin-left: auto; margin-right: 15px; }
 .nav-link { position: relative; font-size: 11px; font-weight: 700; color: #536258; transition: color 180ms ease; white-space: nowrap; }
@@ -656,4 +677,9 @@ h1 em, h2 em { color: var(--ochre); font-weight: 500; }
   .leisure-card-copy { min-height: auto; padding: 27px 22px 27px 0; }
   .leisure-card.featured h2 { font-size: clamp(2.2rem, 10vw, 3.3rem); }
   .leisure-note { width: min(100% - 40px, 600px); margin-bottom: 90px; padding: 18px; }
+  .custom-page-sections { width: min(100% - 40px, 600px); margin-bottom: 90px; }
+  .custom-page-section, .custom-page-section.with-image { grid-template-columns: 1fr; gap: 28px; padding: 55px 0; }
+  .custom-page-section.image-right img, .custom-page-section.image-left img { order: 0; }
+  .custom-page-section.image-right > div, .custom-page-section.image-left > div { order: 1; }
+  .custom-page-section h2 { font-size: clamp(2.35rem, 10vw, 3.4rem); }
 }

@@ -8,7 +8,7 @@ import { useMemo, useState } from "react";
 type Category = "home" | "shop" | "health" | "service";
 type Filter = "all" | Exclude<Category, "home">;
 
-type UsefulPoint = {
+export type UsefulPoint = {
   id: string;
   category: Category;
   title: string;
@@ -16,19 +16,8 @@ type UsefulPoint = {
   description: string;
   x: number;
   y: number;
-  href?: string;
+  url?: string;
 };
-
-const places: UsefulPoint[] = [
-  { id: "home", category: "home", title: "Votre repère de séjour", subtitle: "Cour-Cheverny", description: "Un point indicatif au cœur du village, choisi pour préserver l’adresse précise de la maison.", x: 56, y: 76 },
-  { id: "boulangerie", category: "shop", title: "Boulangerie Pohu", subtitle: "70 rue Nationale · Cour-Cheverny", description: "Une adresse de proximité référencée par la mairie, pratique pour les viennoiseries et le pain du matin.", x: 59, y: 72, href: "https://www.google.com/maps/search/?api=1&query=Boulangerie+Pohu+70+rue+Nationale+Cour-Cheverny" },
-  { id: "tabac", category: "shop", title: "Tabac Presse Harmonie", subtitle: "83 rue Nationale · Cour-Cheverny", description: "Tabac et presse parmi les commerces répertoriés dans le bourg.", x: 63, y: 70, href: "https://www.google.com/maps/search/?api=1&query=Tabac+Presse+Harmonie+Cour-Cheverny" },
-  { id: "pharmacie", category: "health", title: "Pharmacie Lebegue-Ribault", subtitle: "10 place Victor-Hugo · Cour-Cheverny", description: "Pharmacie d’officine. Les horaires et services sont à vérifier directement avant le déplacement.", x: 54, y: 70, href: "https://www.sante.fr/pharmacie-dofficine/cour-cheverny/pharmacie-lebegue-ribault" },
-  { id: "msu", category: "health", title: "Maison de Santé Universitaire", subtitle: "36 route de Romorantin · Cheverny", description: "Maison de santé de proximité. Consultez les modalités de prise en charge et les disponibilités avant de vous y rendre.", x: 56, y: 81, href: "https://mairie-cheverny.com/vie-pratique/numeros-utiles/" },
-  { id: "hospital", category: "health", title: "Centre Hospitalier Simone Veil", subtitle: "Blois", description: "Établissement hospitalier de référence à Blois. En cas d’urgence vitale, appelez le 15.", x: 14, y: 28, href: "https://ch-blois.com/" },
-  { id: "bank", category: "service", title: "Crédit Agricole", subtitle: "5 place Victor-Hugo · Cour-Cheverny", description: "Agence bancaire de proximité, référencée par la mairie de Cour-Cheverny.", x: 49, y: 73, href: "https://www.google.com/maps/search/?api=1&query=Cr%C3%A9dit+Agricole+5+place+Victor+Hugo+Cour-Cheverny" },
-  { id: "auto", category: "service", title: "Services automobile", subtitle: "Zone de l’Ardoise · Cour-Cheverny", description: "Plusieurs garages et services automobiles sont recensés dans la zone de l’Ardoise.", x: 68, y: 82, href: "https://www.google.com/maps/search/?api=1&query=garage+automobile+Cour-Cheverny" },
-];
 
 const filters: Array<{ id: Filter; label: string; icon: typeof MapPin }> = [
   { id: "all", label: "Tout voir", icon: MapPin },
@@ -44,7 +33,7 @@ function glyphFor(category: Category) {
   return "◇";
 }
 
-export default function UsefulPlacesMap() {
+export default function UsefulPlacesMap({ kicker, title, text, places }: { kicker: string; title: string; text: string; places: UsefulPoint[] }) {
   const [filter, setFilter] = useState<Filter>("all");
   const [selectedId, setSelectedId] = useState("home");
   const visiblePlaces = useMemo(
@@ -64,12 +53,10 @@ export default function UsefulPlacesMap() {
     <section className="useful-map-section" aria-labelledby="useful-map-title">
       <div className="useful-map-heading">
         <div>
-          <p className="eyebrow"><MapPin size={14} /> Carte des utiles</p>
-          <h2 id="useful-map-title">Le nécessaire, au bon endroit.</h2>
+          <p className="eyebrow"><MapPin size={14} /> {kicker}</p>
+          <h2 id="useful-map-title">{title}</h2>
         </div>
-        <p>
-          Commencez par les repères vérifiés dans le bourg, puis utilisez les accès ci-dessous pour élargir votre recherche à l’ensemble du périmètre de 30 km.
-        </p>
+        <p>{text}</p>
       </div>
 
       <div className="map-filters" role="group" aria-label="Filtrer les lieux utiles sur la carte">
@@ -105,7 +92,7 @@ export default function UsefulPlacesMap() {
           <p>{selectedPlace.subtitle}</p>
           <h3>{selectedPlace.title}</h3>
           <span>{selectedPlace.description}</span>
-          {selectedPlace.href && <a href={selectedPlace.href} target="_blank" rel="noreferrer">Ouvrir la fiche ou la recherche ↗</a>}
+          {selectedPlace.url && <a href={selectedPlace.url} target="_blank" rel="noreferrer">Ouvrir la fiche ou la recherche ↗</a>}
         </article>
       </div>
 
@@ -115,4 +102,3 @@ export default function UsefulPlacesMap() {
     </section>
   );
 }
-

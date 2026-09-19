@@ -4,20 +4,41 @@
  */
 import { ArrowUpRight, Menu, Search, X } from "lucide-react";
 import { SiAirbnb, SiBookingdotcom } from "react-icons/si";
-import { useState, type ReactNode } from "react";
+import { useState, type CSSProperties, type ReactNode } from "react";
 import { Link, useLocation } from "wouter";
 import SearchOverlay from "@/components/SearchOverlay";
 import siteContent from "@/content/site.json";
+import { customPages } from "@/lib/customPages";
 
-const links = [
-  { href: "/", label: "La maison" },
-  { href: "/chateaux", label: "Les châteaux" },
-  { href: "/autour-de-nous", label: "À 30 km" },
-  { href: "/balades", label: "À pied & à vélo" },
-  { href: "/commerces-utiles", label: "Commerces utiles" },
-  { href: "/idees-de-sejour", label: "Idées de séjour" },
-  { href: "/loisirs", label: "Loisirs" },
+const coreLinks = [
+  { href: "/", label: siteContent.navigation.homeLabel },
+  { href: "/chateaux", label: siteContent.navigation.castlesLabel },
+  { href: "/autour-de-nous", label: siteContent.navigation.aroundLabel },
+  { href: "/balades", label: siteContent.navigation.outdoorsLabel },
+  { href: "/commerces-utiles", label: siteContent.navigation.usefulLabel },
+  { href: "/idees-de-sejour", label: siteContent.navigation.staysLabel },
+  { href: "/loisirs", label: siteContent.navigation.leisureLabel },
 ];
+
+const customLinks = customPages
+  .filter((page) => page.showInNavigation)
+  .map((page) => ({ href: `/${page.slug}`, label: page.navigationLabel || page.title }));
+const links = [...coreLinks, ...customLinks];
+
+const headingFonts: Record<string, string> = {
+  fraunces: '"Fraunces", Georgia, serif',
+  cormorant: '"Cormorant Garamond", Georgia, serif',
+  playfair: '"Playfair Display", Georgia, serif',
+  baskerville: '"Libre Baskerville", Georgia, serif',
+};
+
+const bodyFonts: Record<string, string> = {
+  "dm-sans": '"DM Sans", Arial, sans-serif',
+  inter: '"Inter", Arial, sans-serif',
+  lato: '"Lato", Arial, sans-serif',
+  "open-sans": '"Open Sans", Arial, sans-serif',
+  "source-sans": '"Source Sans 3", Arial, sans-serif',
+};
 
 export function ReservationButtons({ className = "" }: { className?: string }) {
   return (
@@ -53,19 +74,25 @@ export default function SiteLayout({ children }: { children: ReactNode }) {
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [location] = useLocation();
 
+  const appearance = siteContent.appearance;
+  const typographyStyle = {
+    "--font-heading": headingFonts[appearance.headingFont] ?? headingFonts.fraunces,
+    "--font-body": bodyFonts[appearance.bodyFont] ?? bodyFonts["dm-sans"],
+  } as CSSProperties;
+
   return (
-    <div className="site-shell">
+    <div className={`site-shell body-size-${appearance.bodySize} heading-size-${appearance.headingSize}`} style={typographyStyle}>
       <header className="site-header">
         <div className="header-inner">
           <Link href="/" className="brand" aria-label="Accueil La Maison Vigneronne">
             <img
-              src="/manus-storage/maison-vigneronne-logo_8cd94448.png"
+              src={siteContent.identity.logo}
               alt="Symbole de La Maison Vigneronne"
               className="brand-mark"
             />
             <span className="brand-copy">
-              <span>La Maison</span>
-              <strong>Vigneronne</strong>
+              <span>{siteContent.identity.brandLine1}</span>
+              <strong>{siteContent.identity.brandLine2}</strong>
             </span>
           </Link>
 
@@ -122,18 +149,18 @@ export default function SiteLayout({ children }: { children: ReactNode }) {
 
       <footer className="site-footer">
         <div className="footer-mark">
-          <img src="/manus-storage/maison-vigneronne-logo_8cd94448.png" alt="" />
+          <img src={siteContent.identity.logo} alt="" />
           <div>
-            <p className="eyebrow">Cour-Cheverny · Val de Loire</p>
-            <p className="footer-title">La Maison Vigneronne</p>
+            <p className="eyebrow">{siteContent.identity.location}</p>
+            <p className="footer-title">{siteContent.identity.brandLine1} {siteContent.identity.brandLine2}</p>
           </div>
         </div>
         <div className="footer-copy">
-          <p>Une maison de caractère, au cœur des vignes et des châteaux.</p>
+          <p>{siteContent.footer.tagline}</p>
           <ReservationButtons className="footer-reservations" />
         </div>
         <p className="footer-note">
-          Les parcours et horaires évoluent : consultez les sites officiels avant votre visite.
+          {siteContent.footer.note}
         </p>
       </footer>
     </div>

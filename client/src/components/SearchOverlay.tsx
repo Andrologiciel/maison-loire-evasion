@@ -5,10 +5,11 @@
 import { ArrowUpRight, Search, X } from "lucide-react";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { Link } from "wouter";
+import { customPages } from "@/lib/customPages";
 
 type SearchOverlayProps = { onClose: () => void };
 
-const results = [
+const coreResults = [
   { title: "La Maison Vigneronne", description: "Capacité, pièces de vie, jardin clos et réservation.", href: "/maison", category: "La maison", keywords: "maison jardin chambres salon cuisine réservation" },
   { title: "Les châteaux de la Loire", description: "Cheverny, Chambord, Blois et les domaines plus confidentiels.", href: "/chateaux", category: "Visites", keywords: "chateau cheverny chambord blois beauregard villesavin troussay" },
   { title: "Curiosités à moins de 30 km", description: "Vignobles, villages, patrimoine et saveurs locales.", href: "/autour-de-nous", category: "À découvrir", keywords: "vignoble vin village terroir patrimoine blois" },
@@ -16,6 +17,17 @@ const results = [
   { title: "Commerces et lieux utiles", description: "Pharmacie, maison de santé, services et commerces de proximité.", href: "/commerces-utiles", category: "Pratique", keywords: "commerce pharmacie santé medecin médecin supermarché boulangerie urgence" },
   { title: "Idées de séjour", description: "Week-end, 3 jours, une semaine ou séjour prolongé, selon vos envies.", href: "/idees-de-sejour", category: "Inspiration", keywords: "week end weekend trois jours semaine deux semaines repos détente visites programme" },
   { title: "Loisirs & activités", description: "Beauval, baignade, canoë, nature et sorties à partager.", href: "/loisirs", category: "Loisirs", keywords: "beauval zoo baignade canoe canoë kayak cheval famille loisirs" },
+];
+
+const results = [
+  ...coreResults,
+  ...customPages.map((page) => ({
+    title: page.title,
+    description: page.description,
+    href: `/${page.slug}`,
+    category: page.kicker || "Page",
+    keywords: `${page.title} ${page.description} ${page.sections.map((section) => `${section.title} ${section.text}`).join(" ")}`,
+  })),
 ];
 
 function normalize(value: string) {
@@ -52,4 +64,3 @@ export default function SearchOverlay({ onClose }: SearchOverlayProps) {
     </div>
   );
 }
-

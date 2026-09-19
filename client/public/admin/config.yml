@@ -1,6 +1,6 @@
-# Remplacez la valeur ci-dessous par l'identifiant fourni dans Decap Turbo.
 backend:
   name: turbo-github
+  repo: Andrologiciel/maison-loire-evasion
   turbo_site_id: 78f1e4d5-515b-475a-9343-6465e03415df
   branch: main
 
@@ -10,43 +10,470 @@ display_url: https://cheverny.andrologiciels.com
 logo:
   src: https://cheverny.andrologiciels.com/manus-storage/maison-vigneronne-logo_8cd94448.png
   show_in_header: true
-
 publish_mode: simple
 show_preview_links: false
 media_folder: client/public/manus-storage
 public_folder: /manus-storage
-
 media_processing:
   enabled: true
-  format:
-    enabled: true
-    default: webp
+  format: { enabled: true, default: webp }
   quality: 85
   strip_metadata: true
   width: 1920
   height: null
 
 collections:
-  - name: site
-    label: Site
+  - name: settings
+    label: Réglages du site
     files:
       - name: general
-        label: Accueil et réservations
+        label: Identité, navigation et apparence
         file: client/src/content/site.json
         format: json
         fields:
-          - label: Page d'accueil
-            name: home
+          - label: Identité
+            name: identity
             widget: object
             fields:
-              - { label: Titre principal, name: title, widget: string }
-              - { label: Texte d'introduction, name: introduction, widget: text }
-              - { label: Badge — ligne 1, name: badgeLine1, widget: string }
-              - { label: Badge — ligne 2, name: badgeLine2, widget: string }
-              - { label: Badge — ligne 3, name: badgeLine3, widget: string }
+              - { label: Nom — ligne 1, name: brandLine1, widget: string }
+              - { label: Nom — ligne 2, name: brandLine2, widget: string }
+              - { label: Logo, name: logo, widget: image }
+              - { label: Localisation, name: location, widget: string }
+          - label: Apparence et typographie
+            name: appearance
+            widget: object
+            fields:
+              - { label: Police des titres, name: headingFont, widget: select, options: [{ label: Fraunces, value: fraunces }, { label: Cormorant Garamond, value: cormorant }, { label: Playfair Display, value: playfair }, { label: Libre Baskerville, value: baskerville }] }
+              - { label: Police des textes, name: bodyFont, widget: select, options: [{ label: DM Sans, value: dm-sans }, { label: Inter, value: inter }, { label: Lato, value: lato }, { label: Open Sans, value: open-sans }, { label: Source Sans 3, value: source-sans }] }
+              - { label: Taille des textes, name: bodySize, widget: select, options: [{ label: Petite, value: small }, { label: Normale, value: normal }, { label: Grande, value: large }] }
+              - { label: Taille des titres, name: headingSize, widget: select, options: [{ label: Petite, value: small }, { label: Normale, value: normal }, { label: Grande, value: large }] }
+          - label: Libellés du menu
+            name: navigation
+            widget: object
+            fields:
+              - { label: Accueil, name: homeLabel, widget: string }
+              - { label: Châteaux, name: castlesLabel, widget: string }
+              - { label: Autour de nous, name: aroundLabel, widget: string }
+              - { label: Balades, name: outdoorsLabel, widget: string }
+              - { label: Commerces utiles, name: usefulLabel, widget: string }
+              - { label: Idées de séjour, name: staysLabel, widget: string }
+              - { label: Loisirs, name: leisureLabel, widget: string }
           - label: Réservations
             name: booking
             widget: object
             fields:
               - { label: Adresse Airbnb, name: airbnbUrl, widget: string }
               - { label: Adresse Booking.com, name: bookingUrl, widget: string }
+          - label: Pied de page
+            name: footer
+            widget: object
+            fields:
+              - { label: Phrase, name: tagline, widget: text }
+              - { label: Note pratique, name: note, widget: text }
+
+  - name: existing_pages
+    label: Pages du site
+    files:
+      - name: home
+        label: Accueil
+        file: client/src/content/home.json
+        format: json
+        fields:
+          - label: Bandeau principal
+            name: hero
+            widget: object
+            fields:
+              - { label: Code postal, name: postalCode, widget: string }
+              - { label: Localisation, name: location, widget: string }
+              - { label: Titre, name: title, widget: string }
+              - { label: Introduction, name: introduction, widget: text }
+              - { label: Libellé Découvrir, name: discoveryLabel, widget: string }
+              - { label: Note, name: note, widget: string }
+              - { label: Image principale, name: mainImage, widget: image }
+              - { label: Texte alternatif, name: mainImageAlt, widget: string }
+              - { label: Petite image, name: vignetteImage, widget: image }
+              - { label: Texte alternatif petite image, name: vignetteImageAlt, widget: string }
+              - { label: Légende petite image, name: vignetteCaption, widget: string }
+              - { label: Badge — ligne 1, name: badgeLine1, widget: string }
+              - { label: Badge — ligne 2, name: badgeLine2, widget: string }
+              - { label: Badge — ligne 3, name: badgeLine3, widget: string }
+          - { label: Titre des caractéristiques, name: amenitiesLabel, widget: string }
+          - label: Caractéristiques
+            name: amenities
+            widget: list
+            fields:
+              - { label: Icône, name: icon, widget: select, options: [users, bed, bath, tree] }
+              - { label: Valeur, name: value, widget: string }
+              - { label: Libellé, name: label, widget: string }
+          - label: Présentation de la maison
+            name: story
+            widget: object
+            fields:
+              - { label: Note verticale, name: verticalNote, widget: string }
+              - { label: Image, name: image, widget: image }
+              - { label: Texte alternatif, name: imageAlt, widget: string }
+              - { label: Surtitre, name: kicker, widget: string }
+              - { label: Titre, name: title, widget: string }
+              - { label: Paragraphes, name: paragraphs, widget: list, field: { label: Paragraphe, name: paragraph, widget: text } }
+              - { label: Libellé du lien, name: linkLabel, widget: string }
+          - label: Territoire
+            name: territory
+            widget: object
+            fields:
+              - { label: Grande image, name: largeImage, widget: image }
+              - { label: Texte alternatif, name: largeImageAlt, widget: string }
+              - { label: Légende, name: largeImageCaption, widget: string }
+              - { label: Surtitre, name: kicker, widget: string }
+              - { label: Titre, name: title, widget: string }
+              - { label: Texte, name: text, widget: text }
+              - { label: Libellé du lien, name: linkLabel, widget: string }
+              - { label: Petite image, name: smallImage, widget: image }
+              - { label: Texte alternatif petite image, name: smallImageAlt, widget: string }
+          - label: Suggestions de parcours
+            name: routes
+            widget: object
+            fields:
+              - { label: Surtitre, name: kicker, widget: string }
+              - { label: Titre, name: title, widget: string }
+              - { label: Introduction, name: introduction, widget: text }
+              - label: Liens
+                name: items
+                widget: list
+                fields:
+                  - { label: Adresse interne, name: to, widget: string }
+                  - { label: Icône, name: icon, widget: select, options: [castle, wine, bike] }
+                  - { label: Titre, name: title, widget: string }
+                  - { label: Texte, name: text, widget: text }
+          - label: Appel à réservation
+            name: cta
+            widget: object
+            fields:
+              - { label: Image, name: image, widget: image }
+              - { label: Texte alternatif, name: imageAlt, widget: string }
+              - { label: Surtitre, name: kicker, widget: string }
+              - { label: Titre, name: title, widget: string }
+
+      - name: maison
+        label: La maison
+        file: client/src/content/maison.json
+        format: json
+        fields:
+          - label: Bandeau principal
+            name: hero
+            widget: object
+            fields: &hero_fields
+              - { label: Numéro, name: index, widget: string }
+              - { label: Surtitre, name: kicker, widget: string }
+              - { label: Titre, name: title, widget: string }
+              - { label: Description, name: description, widget: text }
+              - { label: Image, name: image, widget: image }
+              - { label: Texte alternatif, name: imageAlt, widget: string }
+              - { label: Légende, name: imageCaption, widget: string }
+          - label: Introduction
+            name: intro
+            widget: object
+            fields:
+              - { label: Surtitre, name: kicker, widget: string }
+              - { label: Titre, name: title, widget: string }
+              - { label: Paragraphes, name: paragraphs, widget: list, field: { label: Paragraphe, name: paragraph, widget: text } }
+              - { label: Image, name: image, widget: image }
+              - { label: Texte alternatif, name: imageAlt, widget: string }
+              - { label: Légende, name: imageCaption, widget: string }
+          - label: Équipements et attentions
+            name: comforts
+            widget: object
+            fields:
+              - { label: Surtitre, name: kicker, widget: string }
+              - { label: Titre, name: title, widget: string }
+              - label: Éléments
+                name: items
+                widget: list
+                fields:
+                  - { label: Icône, name: icon, widget: select, options: [utensils, gamepad, shield, coffee] }
+                  - { label: Titre, name: title, widget: string }
+                  - { label: Texte, name: text, widget: text }
+          - label: Chambres
+            name: sleep
+            widget: object
+            fields:
+              - { label: Image, name: image, widget: image }
+              - { label: Texte alternatif, name: imageAlt, widget: string }
+              - { label: Surtitre, name: kicker, widget: string }
+              - { label: Titre, name: title, widget: string }
+              - { label: Liste des chambres, name: rooms, widget: list, field: { label: Description, name: room, widget: string } }
+              - { label: Note, name: note, widget: text }
+
+      - name: chateaux
+        label: Châteaux
+        file: client/src/content/chateaux.json
+        format: json
+        fields:
+          - { label: Bandeau principal, name: hero, widget: object, fields: *hero_fields }
+          - label: Introduction
+            name: intro
+            widget: object
+            fields:
+              - { label: Tampon, name: stamp, widget: string }
+              - { label: Surtitre, name: kicker, widget: string }
+              - { label: Titre, name: title, widget: string }
+              - { label: Texte, name: text, widget: text }
+          - label: Châteaux
+            name: castles
+            widget: list
+            fields:
+              - { label: Catégorie, name: tag, widget: string }
+              - { label: Distance, name: distance, widget: string }
+              - { label: Titre, name: title, widget: string }
+              - { label: Texte, name: text, widget: text }
+              - { label: Adresse du site, name: url, widget: string }
+              - { label: Libellé du lien, name: linkLabel, widget: string }
+              - { label: Couleur, name: accent, widget: select, options: [terre, moss, ink, sand] }
+          - label: Conseil final
+            name: note
+            widget: object
+            fields:
+              - { label: Surtitre, name: kicker, widget: string }
+              - { label: Titre, name: title, widget: string }
+              - { label: Texte, name: text, widget: text }
+              - { label: Libellé du lien, name: linkLabel, widget: string }
+              - { label: Adresse du lien, name: link, widget: string }
+
+      - name: around
+        label: Autour de nous
+        file: client/src/content/around.json
+        format: json
+        fields:
+          - { label: Bandeau principal, name: hero, widget: object, fields: *hero_fields }
+          - label: Rayon
+            name: radius
+            widget: object
+            fields:
+              - { label: Distance, name: distance, widget: string }
+              - { label: Localisation, name: location, widget: string }
+              - { label: Surtitre, name: kicker, widget: string }
+              - { label: Titre, name: title, widget: string }
+              - { label: Texte, name: text, widget: text }
+          - label: Suggestions
+            name: nearby
+            widget: list
+            fields:
+              - { label: Icône, name: icon, widget: select, options: [grape, trees, compass, soup] }
+              - { label: Titre, name: title, widget: string }
+              - { label: Lieu, name: place, widget: string }
+              - { label: Texte, name: text, widget: text }
+              - { label: Adresse, name: url, widget: string }
+          - label: Journée idéale
+            name: dayIdea
+            widget: object
+            fields:
+              - { label: Image, name: image, widget: image }
+              - { label: Texte alternatif, name: imageAlt, widget: string }
+              - { label: Surtitre, name: kicker, widget: string }
+              - { label: Titre, name: title, widget: string }
+              - { label: Texte, name: text, widget: text }
+
+      - name: outdoors
+        label: À pied et à vélo
+        file: client/src/content/outdoors.json
+        format: json
+        fields:
+          - { label: Bandeau principal, name: hero, widget: object, fields: *hero_fields }
+          - { label: Introduction, name: intro, widget: object, fields: [{ label: Surtitre, name: kicker, widget: string }, { label: Titre, name: title, widget: string }, { label: Texte, name: text, widget: text }] }
+          - label: Carte interactive
+            name: map
+            widget: object
+            fields:
+              - { label: Surtitre, name: kicker, widget: string }
+              - { label: Titre, name: title, widget: string }
+              - { label: Texte, name: text, widget: text }
+              - label: Points
+                name: points
+                widget: list
+                fields: &outdoor_map_fields
+                  - { label: Identifiant unique, name: id, widget: string }
+                  - { label: Catégorie, name: category, widget: select, options: [home, castle, walk, bike, terroir] }
+                  - { label: Titre, name: title, widget: string }
+                  - { label: Sous-titre, name: subtitle, widget: string }
+                  - { label: Description, name: description, widget: text }
+                  - { label: Position horizontale (%), name: x, widget: number, min: 0, max: 100 }
+                  - { label: Position verticale (%), name: y, widget: number, min: 0, max: 100 }
+                  - { label: Adresse, name: url, widget: string, required: false }
+          - label: Vélo
+            name: cycling
+            widget: object
+            fields:
+              - { label: Titre, name: title, widget: string }
+              - { label: Introduction, name: introduction, widget: text }
+              - { label: Adresse officielle, name: officialUrl, widget: string }
+              - { label: Libellé du lien, name: officialLabel, widget: string }
+              - label: Boucles
+                name: items
+                widget: list
+                fields: &link_card_fields
+                  - { label: Titre, name: title, widget: string }
+                  - { label: Texte, name: text, widget: text }
+                  - { label: Adresse, name: url, widget: string }
+              - { label: Image, name: image, widget: image }
+              - { label: Texte alternatif, name: imageAlt, widget: string }
+              - { label: Légende, name: imageCaption, widget: string }
+          - label: Randonnées
+            name: walking
+            widget: object
+            fields:
+              - { label: Surtitre, name: kicker, widget: string }
+              - { label: Titre, name: title, widget: string }
+              - label: Parcours
+                name: items
+                widget: list
+                fields:
+                  - { label: Titre, name: title, widget: string }
+                  - { label: Détails, name: details, widget: string }
+                  - { label: Texte, name: text, widget: text }
+                  - { label: Adresse, name: url, widget: string }
+          - { label: Note de sécurité, name: safety, widget: text }
+
+      - name: useful
+        label: Commerces utiles
+        file: client/src/content/useful.json
+        format: json
+        fields:
+          - { label: Bandeau principal, name: hero, widget: object, fields: *hero_fields }
+          - { label: Introduction, name: intro, widget: object, fields: [{ label: Surtitre, name: kicker, widget: string }, { label: Titre, name: title, widget: string }, { label: Texte, name: text, widget: text }] }
+          - label: Carte interactive
+            name: map
+            widget: object
+            fields:
+              - { label: Surtitre, name: kicker, widget: string }
+              - { label: Titre, name: title, widget: string }
+              - { label: Texte, name: text, widget: text }
+              - label: Points
+                name: points
+                widget: list
+                fields:
+                  - { label: Identifiant unique, name: id, widget: string }
+                  - { label: Catégorie, name: category, widget: select, options: [home, shop, health, service] }
+                  - { label: Titre, name: title, widget: string }
+                  - { label: Sous-titre, name: subtitle, widget: string }
+                  - { label: Description, name: description, widget: text }
+                  - { label: Position horizontale (%), name: x, widget: number, min: 0, max: 100 }
+                  - { label: Position verticale (%), name: y, widget: number, min: 0, max: 100 }
+                  - { label: Adresse, name: url, widget: string, required: false }
+          - label: Recherches cartographiques
+            name: searches
+            widget: object
+            fields:
+              - { label: Surtitre, name: kicker, widget: string }
+              - { label: Titre, name: title, widget: string }
+              - label: Recherches
+                name: items
+                widget: list
+                fields:
+                  - { label: Icône, name: icon, widget: select, options: [shopping, store, cross, heart] }
+                  - { label: Titre, name: title, widget: string }
+                  - { label: Texte, name: text, widget: text }
+                  - { label: Adresse, name: url, widget: string }
+          - label: Adresses essentielles
+            name: essentials
+            widget: object
+            fields:
+              - { label: Surtitre, name: kicker, widget: string }
+              - { label: Titre, name: title, widget: string }
+              - { label: Introduction, name: introduction, widget: text }
+              - label: Adresses
+                name: items
+                widget: list
+                fields:
+                  - { label: Icône, name: icon, widget: select, options: [store, cross, building, hospital] }
+                  - { label: Catégorie, name: type, widget: string }
+                  - { label: Titre, name: title, widget: string }
+                  - { label: Texte, name: text, widget: text }
+                  - { label: Adresse, name: url, widget: string }
+                  - { label: Source, name: source, widget: string }
+          - label: Urgence
+            name: emergency
+            widget: object
+            fields:
+              - { label: Surtitre, name: kicker, widget: string }
+              - { label: Titre, name: title, widget: string }
+              - { label: Texte, name: text, widget: text }
+              - { label: Téléphone, name: phone, widget: string }
+              - { label: Libellé du bouton, name: buttonLabel, widget: string }
+
+      - name: stays
+        label: Idées de séjour
+        file: client/src/content/stays.json
+        format: json
+        fields:
+          - { label: Bandeau principal, name: hero, widget: object, fields: *hero_fields }
+          - { label: Introduction, name: intro, widget: object, fields: [{ label: Surtitre, name: kicker, widget: string }, { label: Titre, name: title, widget: string }, { label: Texte, name: text, widget: text }] }
+          - { label: Filtres, name: filter, widget: object, fields: [{ label: Surtitre, name: kicker, widget: string }, { label: Texte, name: text, widget: string }] }
+          - label: Séjours
+            name: stays
+            widget: list
+            fields:
+              - { label: Durées, name: duration, widget: select, multiple: true, options: [weekend, 3jours, semaine, 2semaines, long] }
+              - { label: Envies, name: moods, widget: select, multiple: true, options: [repos, detente, visites, famille, nature, velo] }
+              - { label: Durée affichée, name: time, widget: string }
+              - { label: Titre, name: title, widget: string }
+              - { label: Introduction, name: lead, widget: text }
+              - { label: Étapes, name: steps, widget: list, field: { label: Étape, name: step, widget: string } }
+              - { label: Image, name: image, widget: image }
+              - { label: Texte alternatif, name: imageAlt, widget: string }
+          - { label: Message sans résultat, name: empty, widget: object, fields: [{ label: Surtitre, name: kicker, widget: string }, { label: Titre, name: title, widget: string }, { label: Bouton, name: buttonLabel, widget: string }] }
+
+      - name: leisure
+        label: Loisirs
+        file: client/src/content/leisure.json
+        format: json
+        fields:
+          - { label: Bandeau principal, name: hero, widget: object, fields: *hero_fields }
+          - { label: Introduction, name: intro, widget: object, fields: [{ label: Surtitre, name: kicker, widget: string }, { label: Titre, name: title, widget: string }, { label: Texte, name: text, widget: text }] }
+          - { label: Titre des filtres, name: filterLabel, widget: string }
+          - label: Activités
+            name: activities
+            widget: list
+            fields:
+              - { label: Catégories, name: categories, widget: select, multiple: true, options: [eau, famille, nature, activites] }
+              - { label: Icône, name: icon, widget: select, options: [paw, droplets, ship, trees, leaf] }
+              - { label: Étiquette, name: tag, widget: string }
+              - { label: Titre, name: title, widget: string }
+              - { label: Texte, name: text, widget: text }
+              - { label: Lieu, name: place, widget: string }
+              - { label: Adresse, name: url, widget: string }
+              - { label: Image, name: image, widget: image }
+          - { label: Note pratique, name: note, widget: text }
+
+  - name: custom_pages
+    label: Pages supplémentaires
+    label_singular: Nouvelle page
+    folder: client/src/content/pages
+    create: true
+    delete: true
+    extension: json
+    format: json
+    identifier_field: title
+    slug: '{{fields.slug}}'
+    summary: '{{fields.title}} — /{{fields.slug}}'
+    fields:
+      - { label: Titre, name: title, widget: string }
+      - { label: Adresse de la page, name: slug, widget: string, pattern: ['^[a-z0-9]+(?:-[a-z0-9]+)*$', 'Utilisez uniquement des minuscules, chiffres et tirets'] }
+      - { label: Libellé dans le menu, name: navigationLabel, widget: string }
+      - { label: Ordre dans le menu, name: navigationOrder, widget: number, value_type: int, default: 100 }
+      - { label: Afficher dans le menu, name: showInNavigation, widget: boolean, default: true }
+      - { label: Surtitre, name: kicker, widget: string }
+      - { label: Description, name: description, widget: text }
+      - { label: Image principale, name: heroImage, widget: image }
+      - { label: Texte alternatif de l’image, name: heroImageAlt, widget: string }
+      - { label: Légende de l’image, name: heroCaption, widget: string, required: false }
+      - label: Sections
+        name: sections
+        widget: list
+        min: 1
+        fields:
+          - { label: Titre, name: title, widget: string }
+          - { label: Texte, name: text, widget: text }
+          - { label: Image, name: image, widget: image, required: false }
+          - { label: Texte alternatif, name: imageAlt, widget: string, required: false }
+          - { label: Position de l’image, name: imagePosition, widget: select, default: right, options: [{ label: À gauche, value: left }, { label: À droite, value: right }, { label: En pleine largeur, value: full }] }
+          - { label: Libellé du bouton, name: buttonLabel, widget: string, required: false }
+          - { label: Adresse du bouton, name: buttonUrl, widget: string, required: false }
