@@ -1,7 +1,7 @@
 # Remplacez la valeur ci-dessous par l'identifiant fourni dans Decap Turbo.
 backend:
   name: turbo-github
-  turbo_site_id: VOTRE_IDENTIFIANT_DECAP_TURBO
+  turbo_site_id: 78f1e4d5-515b-475a-9343-6465e03415df
   branch: main
 
 locale: fr
