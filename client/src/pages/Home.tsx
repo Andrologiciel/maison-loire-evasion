@@ -15,7 +15,8 @@ import {
   Wine,
 } from "lucide-react";
 import { Link } from "wouter";
-import SiteLayout, { BookingButton } from "@/components/SiteLayout";
+import SiteLayout, { ReservationButtons } from "@/components/SiteLayout";
+import siteContent from "@/content/site.json";
 
 const details = [
   { icon: Users, value: "8", label: "voyageurs" },
@@ -54,14 +55,12 @@ export default function Home() {
       <section className="home-hero">
         <div className="hero-intro">
           <p className="eyebrow"><span>41700</span> Cour-Cheverny · Val de Loire</p>
-          <h1>
-            Une maison où <em>la Loire</em> se vit à votre rythme.
-          </h1>
+          <h1>{siteContent.home.title}</h1>
           <p className="hero-lead">
-            Une maison vigneronne du XIX<sup>e</sup> siècle, lumineuse et généreuse, pour se retrouver en famille ou entre amis au cœur des châteaux et des vignobles.
+            {siteContent.home.introduction}
           </p>
           <div className="hero-actions">
-            <BookingButton />
+            <ReservationButtons />
             <a className="text-link" href="#maison">Découvrir la maison <ArrowRight size={16} /></a>
           </div>
           <p className="hero-mini-note">À 10 min à pied du château de Cheverny</p>
@@ -81,7 +80,7 @@ export default function Home() {
             <figcaption>Au cœur des vignes de Cheverny</figcaption>
           </figure>
           <div className="hero-stamp">
-            <span>Maison<br />de<br />vigneron</span>
+            <span>{siteContent.home.badgeLine1}<br />{siteContent.home.badgeLine2}<br />{siteContent.home.badgeLine3}</span>
           </div>
         </div>
       </section>
@@ -165,10 +164,9 @@ export default function Home() {
         <div className="home-cta-copy">
           <p className="eyebrow">Le séjour peut commencer</p>
           <h2>Choisissez votre date,<br />nous préparons la maison.</h2>
-          <BookingButton />
+          <ReservationButtons />
         </div>
       </section>
     </SiteLayout>
   );
 }
-

@@ -3,12 +3,11 @@
  * hospitalité sereine. Cette structure relie la maison et le territoire.
  */
 import { ArrowUpRight, Menu, Search, X } from "lucide-react";
+import { SiAirbnb, SiBookingdotcom } from "react-icons/si";
 import { useState, type ReactNode } from "react";
 import { Link, useLocation } from "wouter";
 import SearchOverlay from "@/components/SearchOverlay";
-
-const bookingHref =
-  "https://www.airbnb.fr/rooms/1699452930737491401?guests=1&adults=1&s=67&unique_share_id=b01cc512-b461-47f1-b82d-398ff4faddf4";
+import siteContent from "@/content/site.json";
 
 const links = [
   { href: "/", label: "La maison" },
@@ -20,16 +19,32 @@ const links = [
   { href: "/loisirs", label: "Loisirs" },
 ];
 
-export function BookingButton({ className = "" }: { className?: string }) {
+export function ReservationButtons({ className = "" }: { className?: string }) {
   return (
-    <a
-      className={`booking-button ${className}`}
-      href={bookingHref}
-      target="_blank"
-      rel="noreferrer"
-    >
-      Préparer votre séjour <ArrowUpRight size={15} strokeWidth={2.2} />
-    </a>
+    <div className={`reservation-buttons ${className}`}>
+      <a
+        className="reservation-button airbnb-button"
+        href={siteContent.booking.airbnbUrl}
+        target="_blank"
+        rel="noreferrer"
+        aria-label="Réserver la Maison Vigneronne sur Airbnb"
+      >
+        <SiAirbnb className="reservation-logo" aria-hidden="true" />
+        <span>Airbnb</span>
+        <ArrowUpRight size={14} strokeWidth={2.2} aria-hidden="true" />
+      </a>
+      <a
+        className="reservation-button booking-com-button"
+        href={siteContent.booking.bookingUrl}
+        target="_blank"
+        rel="noreferrer"
+        aria-label="Réserver la Maison Vigneronne sur Booking.com"
+      >
+        <SiBookingdotcom className="reservation-logo" aria-hidden="true" />
+        <span>Booking.com</span>
+        <ArrowUpRight size={14} strokeWidth={2.2} aria-hidden="true" />
+      </a>
+    </div>
   );
 }
 
@@ -67,7 +82,7 @@ export default function SiteLayout({ children }: { children: ReactNode }) {
           </nav>
 
           <button type="button" className="header-search" onClick={() => setIsSearchOpen(true)} aria-label="Rechercher dans le site"><Search size={17} /></button>
-          <BookingButton className="desktop-booking" />
+          <ReservationButtons className="desktop-booking" />
 
           <button
             type="button"
@@ -96,7 +111,7 @@ export default function SiteLayout({ children }: { children: ReactNode }) {
               ))}
             </nav>
             <button type="button" className="mobile-search" onClick={() => { setIsOpen(false); setIsSearchOpen(true); }}><Search size={16} /> Rechercher dans le site</button>
-            <BookingButton className="mobile-booking" />
+            <ReservationButtons className="mobile-booking" />
           </div>
         )}
       </header>
@@ -115,9 +130,7 @@ export default function SiteLayout({ children }: { children: ReactNode }) {
         </div>
         <div className="footer-copy">
           <p>Une maison de caractère, au cœur des vignes et des châteaux.</p>
-          <a href={bookingHref} target="_blank" rel="noreferrer">
-            Réserver votre séjour <ArrowUpRight size={14} />
-          </a>
+          <ReservationButtons className="footer-reservations" />
         </div>
         <p className="footer-note">
           Les parcours et horaires évoluent : consultez les sites officiels avant votre visite.

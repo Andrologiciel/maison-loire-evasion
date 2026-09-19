@@ -6,28 +6,67 @@ import { fileURLToPath } from "url";
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-async function startServer() {
-  const app = express();
-  const server = createServer(app);
+const app = express();
+const server = createServer(app);
+const staticPath = path.resolve(__dirname, "public");
 
-  // Serve static files from dist/public in production
-  const staticPath =
-    process.env.NODE_ENV === "production"
-      ? path.resolve(__dirname, "public")
-      : path.resolve(__dirname, "..", "dist", "public");
+app.disable("x-powered-by");
 
-  app.use(express.static(staticPath));
+app.use((_req, res, next) => {
+  res.setHeader("X-Content-Type-Options", "nosniff");
+  res.setHeader("X-Frame-Options", "SAMEORIGIN");
+  res.setHeader("Referrer-Policy", "strict-origin-when-cross-origin");
+  next();
+});
 
-  // Handle client-side routing - serve index.html for all routes
-  app.get("*", (_req, res) => {
-    res.sendFile(path.join(staticPath, "index.html"));
-  });
+app.get("/health", (_req, res) => {
+  res.json({ status: "ok", service: "maison-loire-evasion" });
+});
 
-  const port = process.env.PORT || 3000;
+app.use(
+  express.static(staticPath, {
+    index: false,
+    maxAge: "7d",
+    setHeaders(res, filePath) {
+      if (filePath.endsWith("index.html") || filePath.endsWith("admin/config.yml")) {
+        res.setHeader("Cache-Control", "no-store");
+      }
+    },
+  }),
+);
 
-  server.listen(port, () => {
-    console.log(`Server running on http://localhost:${port}/`);
+app.get(["/admin", "/admin/"], (_req, res) => {
+  res.setHeader("Cache-Control", "no-store");
+  res.sendFile(path.join(staticPath, "admin", "index.html"));
+});
+
+// React routes are handled in the browser. Direct links therefore receive the app shell.
+app.get("*", (_req, res) => {
+  res.setHeader("Cache-Control", "no-cache");
+  res.sendFile(path.join(staticPath, "index.html"));
+});
+
+const port = Number.parseInt(process.env.PORT ?? "3000", 10);
+const host = process.env.HOST ?? "127.0.0.1";
+
+if (!Number.isInteger(port) || port < 1 || port > 65535) {
+  throw new Error(`Invalid PORT value: ${process.env.PORT}`);
+}
+
+server.listen(port, host, () => {
+  console.log(`Maison Loire Evasion listening on http://${host}:${port}`);
+});
+
+function shutdown(signal: NodeJS.Signals) {
+  console.log(`${signal} received, shutting down`);
+  server.close((error) => {
+    if (error) {
+      console.error(error);
+      process.exit(1);
+    }
+    process.exit(0);
   });
 }
 
-startServer().catch(console.error);
+process.on("SIGINT", shutdown);
+process.on("SIGTERM", shutdown);

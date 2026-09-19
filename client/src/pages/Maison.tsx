@@ -4,7 +4,7 @@
  */
 import { Check, Coffee, Gamepad2, ShieldCheck, Sparkles, Utensils } from "lucide-react";
 import PageHero from "@/components/PageHero";
-import SiteLayout, { BookingButton } from "@/components/SiteLayout";
+import SiteLayout, { ReservationButtons } from "@/components/SiteLayout";
 
 const comforts = [
   { icon: Utensils, title: "Une cuisine pour partager", text: "Four, lave-vaisselle, grand réfrigérateur, Airfryer et de nombreux appareils pour les repas qui s’étirent." },
@@ -77,10 +77,9 @@ export default function Maison() {
             {rooms.map((room) => <p key={room}><Check size={16} /> {room}</p>)}
           </div>
           <p className="small-note">Le linge de lit et les serviettes de toilette sont fournis pour simplifier votre arrivée.</p>
-          <BookingButton />
+          <ReservationButtons />
         </div>
       </section>
     </SiteLayout>
   );
 }
-

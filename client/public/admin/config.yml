@@ -1,0 +1,52 @@
+# Remplacez la valeur ci-dessous par l'identifiant fourni dans Decap Turbo.
+backend:
+  name: turbo-github
+  turbo_site_id: VOTRE_IDENTIFIANT_DECAP_TURBO
+  branch: main
+
+locale: fr
+site_url: https://cheverny.andrologiciels.com
+display_url: https://cheverny.andrologiciels.com
+logo:
+  src: https://cheverny.andrologiciels.com/manus-storage/maison-vigneronne-logo_8cd94448.png
+  show_in_header: true
+
+publish_mode: simple
+show_preview_links: false
+media_folder: client/public/manus-storage
+public_folder: /manus-storage
+
+media_processing:
+  enabled: true
+  format:
+    enabled: true
+    default: webp
+  quality: 85
+  strip_metadata: true
+  width: 1920
+  height: null
+
+collections:
+  - name: site
+    label: Site
+    files:
+      - name: general
+        label: Accueil et réservations
+        file: client/src/content/site.json
+        format: json
+        fields:
+          - label: Page d'accueil
+            name: home
+            widget: object
+            fields:
+              - { label: Titre principal, name: title, widget: string }
+              - { label: Texte d'introduction, name: introduction, widget: text }
+              - { label: Badge — ligne 1, name: badgeLine1, widget: string }
+              - { label: Badge — ligne 2, name: badgeLine2, widget: string }
+              - { label: Badge — ligne 3, name: badgeLine3, widget: string }
+          - label: Réservations
+            name: booking
+            widget: object
+            fields:
+              - { label: Adresse Airbnb, name: airbnbUrl, widget: string }
+              - { label: Adresse Booking.com, name: bookingUrl, widget: string }

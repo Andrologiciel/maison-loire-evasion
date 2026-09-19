@@ -89,9 +89,13 @@ sup { font-size: 0.53em; }
 .nav-link::after { position: absolute; bottom: -7px; left: 0; width: 0; height: 1.5px; background: var(--ochre); content: ""; transition: width 200ms cubic-bezier(.23,1,.32,1); }
 .nav-link:hover, .nav-link.active { color: var(--ink); }
 .nav-link:hover::after, .nav-link.active::after { width: 100%; }
-.booking-button { display: inline-flex; align-items: center; justify-content: center; gap: 10px; padding: 12px 16px; background: var(--ochre); color: #fffaf3; border: 1px solid var(--ochre); font-size: 12px; font-weight: 700; letter-spacing: .025em; transition: transform 160ms cubic-bezier(.23,1,.32,1), background 160ms ease; }
-.booking-button:hover { background: #95471f; transform: translateY(-2px); }
-.booking-button:active { transform: scale(.97); }
+.reservation-buttons { display: inline-flex; align-items: stretch; flex-wrap: wrap; gap: 8px; }
+.reservation-button { display: inline-flex; align-items: center; justify-content: center; gap: 7px; min-height: 43px; padding: 10px 13px; color: #fff; border: 1px solid transparent; font-size: 11px; font-weight: 700; letter-spacing: .015em; white-space: nowrap; transition: transform 160ms cubic-bezier(.23,1,.32,1), filter 160ms ease, box-shadow 160ms ease; }
+.reservation-button:hover { filter: brightness(.92); box-shadow: 0 8px 18px rgba(30, 43, 36, .16); transform: translateY(-2px); }
+.reservation-button:active { transform: scale(.97); }
+.reservation-logo { flex: none; font-size: 21px; }
+.airbnb-button { background: #ff385c; border-color: #ff385c; }
+.booking-com-button { background: #003b95; border-color: #003b95; }
 .header-search { display: grid; width: 37px; height: 37px; margin-right: 11px; place-items: center; border: 1px solid var(--line); background: transparent; color: var(--moss); transition: background 180ms ease, color 180ms ease; }
 .header-search:hover { background: var(--moss); color: #fffaf1; }
 .menu-toggle { display: none; padding: 6px; background: transparent; color: var(--ink); border: 0; }
@@ -193,8 +197,7 @@ h1 em, h2 em { color: var(--ochre); font-weight: 500; }
 .home-cta-copy { position: absolute; top: 50%; left: clamp(30px, 7vw, 100px); max-width: 540px; transform: translateY(-50%); }
 .home-cta-copy .eyebrow { color: #edc496; }
 .home-cta-copy h2 { margin: 19px 0 30px; font-size: clamp(2.5rem, 4vw, 4.5rem); }
-.home-cta-copy .booking-button { background: #f7f1e6; color: var(--moss); border-color: #f7f1e6; }
-.home-cta-copy .booking-button:hover { background: #fff; }
+.home-cta-copy .reservation-buttons { max-width: 100%; }
 
 .page-hero { display: grid; grid-template-columns: minmax(320px, .8fr) minmax(440px, 1.2fr); gap: clamp(45px, 7vw, 125px); width: min(1370px, calc(100% - 80px)); min-height: 610px; margin: 0 auto; padding: 85px 0 90px; align-items: center; }
 .page-hero-copy { max-width: 545px; padding-bottom: 15px; }
@@ -476,7 +479,7 @@ h1 em, h2 em { color: var(--ochre); font-weight: 500; }
 .footer-mark .eyebrow { color: #deb886; }
 .footer-title { margin-top: 3px; font-family: "Fraunces", Georgia, serif; font-size: 24px; letter-spacing: -.04em; }
 .footer-copy p { margin-bottom: 9px; color: #d6dfd7; font-size: 13px; }
-.footer-copy a { display: inline-flex; align-items: center; gap: 6px; color: #e8bf89; font-size: 12px; font-weight: 700; }
+.footer-reservations .reservation-button { min-height: 38px; padding: 8px 11px; }
 .footer-note { color: #aabbb0; font-size: 11px; line-height: 1.5; }
 
 @media (prefers-reduced-motion: no-preference) {
@@ -513,7 +516,8 @@ h1 em, h2 em { color: var(--ochre); font-weight: 500; }
   .mobile-link { display: flex; gap: 14px; padding: 12px 0; border-bottom: 1px solid var(--line); font-family: "Fraunces", Georgia, serif; font-size: 21px; }
   .mobile-link span { color: var(--ochre); font-family: "DM Sans", sans-serif; font-size: 10px; font-weight: 700; letter-spacing: .1em; }
   .mobile-link.active { color: var(--ochre); }
-  .mobile-booking { width: 100%; margin-top: 18px; }
+  .mobile-booking { display: flex; width: 100%; margin-top: 18px; }
+  .mobile-booking .reservation-button { flex: 1; }
   .home-hero, .page-hero { display: flex; flex-direction: column; align-items: stretch; min-height: auto; gap: 50px; padding: 52px 0 66px; }
   .hero-intro h1, .page-hero h1 { font-size: clamp(3.2rem, 14vw, 4.8rem); }
   .hero-lead, .page-hero-description { font-size: 16px; }
