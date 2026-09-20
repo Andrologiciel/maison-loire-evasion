@@ -35,34 +35,39 @@
 }
 
 :root {
-  --background: #f5f0e6;
-  --foreground: #21382f;
-  --card: #fcfaf5;
-  --card-foreground: #21382f;
-  --popover: #fcfaf5;
-  --popover-foreground: #21382f;
-  --primary: #b75d31;
+  --site-primary: #b75d31;
+  --site-secondary: #315444;
+  --site-text: #21382f;
+  --site-background: #f5f0e6;
+  --custom-button-color: #315444;
+  --background: var(--site-background);
+  --foreground: var(--site-text);
+  --card: color-mix(in srgb, var(--site-background) 88%, white);
+  --card-foreground: var(--site-text);
+  --popover: color-mix(in srgb, var(--site-background) 88%, white);
+  --popover-foreground: var(--site-text);
+  --primary: var(--site-primary);
   --primary-foreground: #fff9f0;
-  --secondary: #e4ebdf;
-  --secondary-foreground: #21382f;
-  --muted: #e9e2d6;
-  --muted-foreground: #627168;
-  --accent: #dfe6cf;
-  --accent-foreground: #21382f;
+  --secondary: color-mix(in srgb, var(--site-secondary) 15%, var(--site-background));
+  --secondary-foreground: var(--site-text);
+  --muted: color-mix(in srgb, var(--site-text) 9%, var(--site-background));
+  --muted-foreground: color-mix(in srgb, var(--site-text) 72%, var(--site-background));
+  --accent: color-mix(in srgb, var(--site-primary) 14%, var(--site-background));
+  --accent-foreground: var(--site-text);
   --destructive: #b93838;
   --destructive-foreground: #fff;
-  --border: #d8cfbf;
-  --input: #d8cfbf;
-  --ring: #b75d31;
+  --border: color-mix(in srgb, var(--site-text) 19%, var(--site-background));
+  --input: var(--border);
+  --ring: var(--site-primary);
   --radius: 0.5rem;
-  --ink: #21382f;
-  --moss: #315444;
-  --paper: #f5f0e6;
-  --cream: #fcfaf5;
-  --sand: #ded0b8;
-  --ochre: #b75d31;
-  --soft-ochre: #d78d55;
-  --line: #cbc1b0;
+  --ink: var(--site-text);
+  --moss: var(--site-secondary);
+  --paper: var(--site-background);
+  --cream: color-mix(in srgb, var(--site-background) 84%, white);
+  --sand: color-mix(in srgb, var(--site-primary) 18%, var(--site-background));
+  --ochre: var(--site-primary);
+  --soft-ochre: color-mix(in srgb, var(--site-primary) 72%, white);
+  --line: color-mix(in srgb, var(--site-text) 21%, var(--site-background));
   --font-heading: "Fraunces", Georgia, serif;
   --font-body: "DM Sans", Arial, sans-serif;
 }
@@ -93,7 +98,25 @@ sup { font-size: 0.53em; }
 .custom-page-section div > p:not(.eyebrow) { margin: 0 0 17px; color: #536258; white-space: pre-line; }
 .custom-page-section .underline-link { margin-top: 15px; }
 
-.site-shell { overflow: hidden; font-family: var(--font-body); }
+.site-shell { min-height: 100vh; overflow: hidden; background: var(--paper); color: var(--ink); font-family: var(--font-body); }
+.site-shell.content-width-compact { --layout-wide: 1160px; --layout-medium: 1010px; }
+.site-shell.content-width-standard { --layout-wide: 1370px; --layout-medium: 1170px; }
+.site-shell.content-width-wide { --layout-wide: 1540px; --layout-medium: 1320px; }
+.site-shell.corners-square { --media-radius: 0px; --card-radius: 0px; }
+.site-shell.corners-subtle { --media-radius: 6px; --card-radius: 8px; }
+.site-shell.corners-rounded { --media-radius: 18px; --card-radius: 22px; }
+.site-shell.button-shape-square { --button-radius: 0px; }
+.site-shell.button-shape-soft { --button-radius: 8px; }
+.site-shell.button-shape-pill { --button-radius: 999px; }
+.site-shell.buttons-primary .reservation-button { background: var(--site-primary); border-color: var(--site-primary); }
+.site-shell.buttons-secondary .reservation-button { background: var(--site-secondary); border-color: var(--site-secondary); }
+.site-shell.buttons-custom .reservation-button { background: var(--custom-button-color); border-color: var(--custom-button-color); }
+.reservation-button, .header-search, .mobile-search, .search-close, .filter-chip { border-radius: var(--button-radius); }
+.site-shell img:not(.brand-mark), .search-dialog, .map-point-card, .comfort-card, .nearby-card, .live-search-card, .emergency-banner, .stay-empty, .leisure-card { border-radius: var(--media-radius); }
+.home-cta, .sleep-section, .schematic-map { border-radius: var(--card-radius); }
+.home-cta, .sleep-section, .schematic-map, .site-shell img:not(.brand-mark) { overflow: hidden; }
+.header-inner, .home-hero, .portrait-grid-section, .home-cta, .page-hero, .sleep-section, .nearby-grid, .interactive-map-section, .useful-map-section, .emergency-banner, .leisure-grid { width: min(var(--layout-wide), calc(100% - 80px)); }
+.custom-page-sections, .intro-spread, .castle-intro, .castle-list, .radius-section, .day-idea, .outdoors-intro, .useful-intro, .essential-list-section, .walking-section, .safety-note, .stays-intro, .leisure-intro, .stay-list, .leisure-filter-section, .leisure-note { width: min(var(--layout-medium), calc(100% - 80px)); }
 .site-shell.body-size-small p:not(.eyebrow), .site-shell.body-size-small li { zoom: .94; }
 .site-shell.body-size-large p:not(.eyebrow), .site-shell.body-size-large li { zoom: 1.08; }
 .site-shell.heading-size-small h1, .site-shell.heading-size-small h2, .site-shell.heading-size-small h3 { zoom: .9; }

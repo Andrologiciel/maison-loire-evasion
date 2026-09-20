@@ -6,6 +6,8 @@ La version actuelle de Decap expose toutes les pages dans **Pages du site**, les
 réglages globaux dans **Réglages du site** et permet d’ajouter des pages avec
 **Pages supplémentaires**. Les nouvelles pages rejoignent automatiquement le menu
 et la recherche lors de la reconstruction qui suit leur publication.
+La rubrique **Thème et couleurs** contrôle les palettes, les couleurs personnalisées,
+les boutons, la largeur du contenu et l'arrondi des images et des cartes.
 
 ## 1. Mettre cette version sur GitHub
 
@@ -143,22 +145,22 @@ Le workflow `.github/workflows/deploy.yml` reconstruit et redémarre le site apr
 Créer une clé réservée au déploiement sur le VPS :
 
 ```bash
-ssh-keygen -t ed25519 -f /home/cyrgui/github-actions-deploy -C "github-actions-maison" -N ""
-cat /home/cyrgui/github-actions-deploy.pub >> /home/cyrgui/.ssh/authorized_keys
-chmod 700 /home/cyrgui/.ssh
-chmod 600 /home/cyrgui/.ssh/authorized_keys
+ssh-keygen -t ed25519 -f "$HOME/github-actions-deploy" -C "github-actions-maison" -N ""
+cat "$HOME/github-actions-deploy.pub" >> "$HOME/.ssh/authorized_keys"
+chmod 700 "$HOME/.ssh"
+chmod 600 "$HOME/.ssh/authorized_keys"
 ```
 
 Afficher la clé privée à copier dans GitHub :
 
 ```bash
-cat /home/cyrgui/github-actions-deploy
+cat "$HOME/github-actions-deploy"
 ```
 
 Depuis un ordinateur de confiance, obtenir la clé publique SSH du VPS :
 
 ```bash
-ssh-keyscan -t ed25519 ADRESSE_IP_DU_VPS
+ssh-keyscan -p 9922 -t ed25519 ADRESSE_IP_DU_VPS
 ```
 
 Dans GitHub, ouvrir :
@@ -167,19 +169,20 @@ Dans GitHub, ouvrir :
 Repository > Settings > Secrets and variables > Actions
 ```
 
-Créer quatre secrets :
+Créer cinq secrets :
 
 | Secret | Valeur |
 |---|---|
 | `VPS_HOST` | adresse IP ou nom DNS du VPS |
-| `VPS_USER` | `cyrgui` |
+| `VPS_USER` | `Cyrgui` |
+| `VPS_PORT` | `9922` |
 | `VPS_SSH_PRIVATE_KEY` | contenu complet de `github-actions-deploy` |
 | `VPS_KNOWN_HOSTS` | ligne complète produite par `ssh-keyscan` |
 
 Après avoir enregistré `VPS_SSH_PRIVATE_KEY` dans GitHub **et validé un premier déploiement**, supprimer uniquement la copie de cette clé privée créée pour le transfert :
 
 ```bash
-shred -u /home/cyrgui/github-actions-deploy
+shred -u "$HOME/github-actions-deploy"
 ```
 
 Conserver le fichier `.pub` et l'entrée dans `authorized_keys`.
@@ -199,15 +202,9 @@ Dans GitHub, ouvrir l'onglet **Actions**, sélectionner **Deploy to VPS** et vé
 
 ## 8. Contenus actuellement administrables
 
-Cette première configuration permet de modifier :
-
-- le titre principal de la page d'accueil ;
-- son texte d'introduction ;
-- les trois lignes du badge ;
-- l'adresse Airbnb ;
-- l'adresse Booking.com.
-
-Les autres contenus restent dans les composants React et pourront être déplacés progressivement dans les fichiers administrés par Decap.
+La configuration permet de modifier toutes les pages existantes, les réglages
+globaux, la typographie, les thèmes et couleurs, les liens de réservation et le pied
+de page. Elle permet aussi de créer et supprimer des pages supplémentaires.
 
 ## 9. Diagnostic
 

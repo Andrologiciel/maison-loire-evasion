@@ -40,6 +40,13 @@ const bodyFonts: Record<string, string> = {
   "source-sans": '"Source Sans 3", Arial, sans-serif',
 };
 
+const themePresets: Record<string, { primary: string; secondary: string; text: string; background: string }> = {
+  current: { primary: "#b75d31", secondary: "#315444", text: "#21382f", background: "#f5f0e6" },
+  winery: { primary: "#8b3a46", secondary: "#5d4934", text: "#302522", background: "#f6eee5" },
+  loire: { primary: "#3f7f6c", secondary: "#58744d", text: "#243c35", background: "#f1f5ec" },
+  chateau: { primary: "#9a762e", secondary: "#2f4665", text: "#252c38", background: "#f4f0e8" },
+};
+
 export function ReservationButtons({ className = "" }: { className?: string }) {
   return (
     <div className={`reservation-buttons ${className}`}>
@@ -75,13 +82,31 @@ export default function SiteLayout({ children }: { children: ReactNode }) {
   const [location] = useLocation();
 
   const appearance = siteContent.appearance;
-  const typographyStyle = {
+  const theme = siteContent.theme;
+  const preset = themePresets[theme.themePreset] ?? themePresets.current;
+  const colors = theme.customColors
+    ? {
+        primary: theme.primaryColor,
+        secondary: theme.secondaryColor,
+        text: theme.textColor,
+        background: theme.backgroundColor,
+      }
+    : preset;
+  const appearanceStyle = {
     "--font-heading": headingFonts[appearance.headingFont] ?? headingFonts.fraunces,
     "--font-body": bodyFonts[appearance.bodyFont] ?? bodyFonts["dm-sans"],
+    "--site-primary": colors.primary,
+    "--site-secondary": colors.secondary,
+    "--site-text": colors.text,
+    "--site-background": colors.background,
+    "--custom-button-color": theme.buttonColor,
   } as CSSProperties;
 
   return (
-    <div className={`site-shell body-size-${appearance.bodySize} heading-size-${appearance.headingSize}`} style={typographyStyle}>
+    <div
+      className={`site-shell theme-${theme.themePreset} body-size-${appearance.bodySize} heading-size-${appearance.headingSize} buttons-${theme.buttonStyle} button-shape-${theme.buttonShape} content-width-${theme.contentWidth} corners-${theme.cornerRadius}`}
+      style={appearanceStyle}
+    >
       <header className="site-header">
         <div className="header-inner">
           <Link href="/" className="brand" aria-label="Accueil La Maison Vigneronne">

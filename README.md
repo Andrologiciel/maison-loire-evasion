@@ -58,13 +58,14 @@ L’administration est disponible sur `/admin/`. Elle permet de modifier :
 - l’ensemble des pages existantes et leurs listes, images, liens et cartes ;
 - les libellés du menu, le pied de page et les liens de réservation ;
 - les polices et les tailles globales des titres et des textes ;
+- quatre thèmes prédéfinis, les couleurs, les boutons, la largeur et les arrondis ;
 - des pages supplémentaires, créées dans `client/src/content/pages`.
 
 Une page supplémentaire reçoit automatiquement une route `/<slug>`, peut être affichée
 dans le menu et rejoint la recherche interne après la prochaine construction du site.
-Comme les changements Decap sont enregistrés dans GitHub, le serveur doit ensuite tirer
-la branche `main`, reconstruire le site et redémarrer PM2, sauf si le workflow de
-déploiement automatique est configuré.
+Les changements Decap sont enregistrés dans GitHub. Le workflow de déploiement se
+connecte ensuite au VPS sur le port 9922, met à jour `/opt/maison-loire-evasion`,
+reconstruit le site et redémarre PM2 automatiquement.
 
 ## Exemple NGINX
 

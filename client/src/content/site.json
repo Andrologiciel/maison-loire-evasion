@@ -11,6 +11,19 @@
     "bodySize": "normal",
     "headingSize": "small"
   },
+  "theme": {
+    "themePreset": "current",
+    "customColors": false,
+    "primaryColor": "#b75d31",
+    "secondaryColor": "#315444",
+    "textColor": "#21382f",
+    "backgroundColor": "#f5f0e6",
+    "buttonStyle": "brand",
+    "buttonColor": "#315444",
+    "buttonShape": "square",
+    "contentWidth": "standard",
+    "cornerRadius": "subtle"
+  },
   "navigation": {
     "homeLabel": "La maison",
     "castlesLabel": "Les châteaux",

@@ -47,6 +47,54 @@ collections:
               - { label: Police des textes, name: bodyFont, widget: select, options: [{ label: DM Sans, value: dm-sans }, { label: Inter, value: inter }, { label: Lato, value: lato }, { label: Open Sans, value: open-sans }, { label: Source Sans 3, value: source-sans }] }
               - { label: Taille des textes, name: bodySize, widget: select, options: [{ label: Petite, value: small }, { label: Normale, value: normal }, { label: Grande, value: large }] }
               - { label: Taille des titres, name: headingSize, widget: select, options: [{ label: Petite, value: small }, { label: Normale, value: normal }, { label: Grande, value: large }] }
+          - label: Thème et couleurs
+            name: theme
+            widget: object
+            summary: "Thème, couleurs et mise en page"
+            fields:
+              - label: Thème prédéfini
+                name: themePreset
+                widget: select
+                options:
+                  - { label: Actuel — carnet de terroir, value: current }
+                  - { label: Chaleureux / vigneron, value: winery }
+                  - { label: Naturel / Loire, value: loire }
+                  - { label: Élégant / châteaux, value: chateau }
+              - { label: Personnaliser les couleurs du thème, name: customColors, widget: boolean, default: false, hint: Activez cette option pour utiliser les quatre couleurs choisies ci-dessous. }
+              - { label: Couleur principale, name: primaryColor, widget: color, default: "#b75d31", allowInput: true, enableAlpha: false }
+              - { label: Couleur secondaire, name: secondaryColor, widget: color, default: "#315444", allowInput: true, enableAlpha: false }
+              - { label: Couleur des textes, name: textColor, widget: color, default: "#21382f", allowInput: true, enableAlpha: false }
+              - { label: Couleur d’arrière-plan, name: backgroundColor, widget: color, default: "#f5f0e6", allowInput: true, enableAlpha: false }
+              - label: Couleur des boutons
+                name: buttonStyle
+                widget: select
+                options:
+                  - { label: Couleurs officielles Airbnb et Booking, value: brand }
+                  - { label: Couleur principale du thème, value: primary }
+                  - { label: Couleur secondaire du thème, value: secondary }
+                  - { label: Couleur personnalisée, value: custom }
+              - { label: Couleur personnalisée des boutons, name: buttonColor, widget: color, default: "#315444", allowInput: true, enableAlpha: false }
+              - label: Forme des boutons
+                name: buttonShape
+                widget: select
+                options:
+                  - { label: Carrés, value: square }
+                  - { label: Légèrement arrondis, value: soft }
+                  - { label: Très arrondis, value: pill }
+              - label: Largeur du contenu
+                name: contentWidth
+                widget: select
+                options:
+                  - { label: Compacte, value: compact }
+                  - { label: Standard, value: standard }
+                  - { label: Large, value: wide }
+              - label: Arrondi des images et cartes
+                name: cornerRadius
+                widget: select
+                options:
+                  - { label: Aucun, value: square }
+                  - { label: Discret, value: subtle }
+                  - { label: Prononcé, value: rounded }
           - label: Libellés du menu
             name: navigation
             widget: object
