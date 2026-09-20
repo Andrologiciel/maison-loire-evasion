@@ -6,15 +6,15 @@
     "location": "Cour-Cheverny · Val de Loire"
   },
   "appearance": {
-    "headingFont": "baskerville",
+    "headingFont": "playfair",
     "bodyFont": "dm-sans",
     "bodySize": "normal",
-    "headingSize": "normal"
+    "headingSize": "small"
   },
   "navigation": {
     "homeLabel": "La maison",
     "castlesLabel": "Les châteaux",
-    "aroundLabel": "Dans un rayon de 30 kms",
+    "aroundLabel": "Autour de nous",
     "outdoorsLabel": "À pied & à vélo",
     "usefulLabel": "Commerces utiles",
     "staysLabel": "Idées de programmes",
