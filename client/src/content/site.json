@@ -14,10 +14,10 @@
   "navigation": {
     "homeLabel": "La maison",
     "castlesLabel": "Les châteaux",
-    "aroundLabel": "À 30 km",
+    "aroundLabel": "Dans un rayon de 30 kms",
     "outdoorsLabel": "À pied & à vélo",
     "usefulLabel": "Commerces utiles",
-    "staysLabel": "Idées de séjour",
+    "staysLabel": "Idées de programmes",
     "leisureLabel": "Loisirs"
   },
   "booking": {
