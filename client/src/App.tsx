@@ -14,6 +14,7 @@ import CustomPage from "@/pages/CustomPage";
 import { Route, Switch } from "wouter";
 import ErrorBoundary from "./components/ErrorBoundary";
 import { ThemeProvider } from "./contexts/ThemeContext";
+import SeoManager from "./components/SeoManager";
 
 function Router() {
   return (
@@ -38,6 +39,7 @@ export default function App() {
     <ErrorBoundary>
       <ThemeProvider defaultTheme="light">
         <TooltipProvider>
+          <SeoManager />
           <Toaster />
           <Router />
         </TooltipProvider>

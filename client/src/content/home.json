@@ -1,4 +1,10 @@
 {
+  "seo": {
+    "title": "Location gîte de vacances à Cour-Cheverny – La Vigneronne, près des châteaux de la Loire",
+    "description": "Séjournez à La Vigneronne, maison de caractère à Cour-Cheverny pour 8 personnes. À deux pas du château de Cheverny et proche de Chambord, Blois et du Zoo de Beauval.",
+    "shareImage": "/manus-storage/maison-exterieur_57eb8c38.jpg",
+    "noIndex": false
+  },
   "hero": {
     "vignetteImage": "/manus-storage/loire-vineyard-hero_0ede957b.jpg",
     "mainImage": "/manus-storage/maison-exterieur_57eb8c38.jpg",

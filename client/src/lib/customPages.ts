@@ -9,6 +9,12 @@ export type CustomSection = {
 };
 
 export type CustomPageContent = {
+  seo?: {
+    title?: string;
+    description?: string;
+    shareImage?: string;
+    noIndex?: boolean;
+  };
   title: string;
   slug: string;
   navigationLabel: string;

@@ -1,4 +1,10 @@
 {
+  "seo": {
+    "title": "Balades à pied et à vélo autour de Cour-Cheverny",
+    "description": "Parcourez les itinéraires pédestres et cyclables autour de Cour-Cheverny, Cheverny, Chambord et des paysages de Sologne.",
+    "shareImage": "/manus-storage/loire-cycling-route_eca40887.jpg",
+    "noIndex": false
+  },
   "hero": { "index": "04", "kicker": "À pied & à vélo", "title": "Le plaisir de suivre les chemins plutôt que l’horloge.", "description": "Des pistes cyclables paisibles, des boucles balisées et les chemins de Sologne : les alentours s’explorent sans chercher la performance.", "image": "/manus-storage/loire-cycling-route_eca40887.jpg", "imageAlt": "Cyclistes sur une route paisible du Val de Loire", "imageCaption": "Le Val de Loire, au fil des saisons" },
   "intro": { "kicker": "Le bon départ", "title": "Les itinéraires prennent la forme d’une promenade.", "text": "La maison se trouve à proximité des pistes cyclables et du balisage local. Pour une trace, un équipement ou les conditions actualisées, les liens renvoient directement aux pages des offices de tourisme." },
   "map": { "kicker": "Carte des échappées", "title": "Repérez vos envies autour de la maison.", "text": "Filtrez les repères et cliquez sur une pastille pour ouvrir sa fiche. Les points de randonnée et de vélo indiquent les départs ou les zones de boucle.", "points": [

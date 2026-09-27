@@ -1,4 +1,10 @@
 {
+  "seo": {
+    "title": "Idées de séjour dans les châteaux de la Loire",
+    "description": "Week-end, trois jours ou semaine : composez votre séjour entre châteaux de la Loire, vignobles, balades et moments au jardin.",
+    "shareImage": "/manus-storage/loire-vineyard-hero_0ede957b.jpg",
+    "noIndex": false
+  },
   "hero": { "index": "06", "kicker": "Idées de séjour", "title": "Un séjour à composer, jamais à remplir.", "description": "Du week-end improvisé aux vacances qui s’installent, choisissez une durée et une envie ; la Loire s’occupe du reste.", "image": "/manus-storage/loire-vineyard-hero_0ede957b.jpg", "imageAlt": "Paysage viticole du Val de Loire", "imageCaption": "Le Val de Loire, au fil des saisons" },
   "intro": { "kicker": "Votre rythme avant tout", "title": "Voir beaucoup, ou juste assez.", "text": "Ces suggestions donnent une direction, pas un emploi du temps. Gardez toujours une marge pour un repas qui s’étire, une sieste sous les arbres ou une découverte glanée en chemin." },
   "filter": { "kicker": "Choisir votre séjour", "text": "Affinez par durée et par envie." },

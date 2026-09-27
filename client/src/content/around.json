@@ -1,4 +1,10 @@
 {
+  "seo": {
+    "title": "Que faire autour de Cour-Cheverny ? | La Vigneronne",
+    "description": "Découvrez les vignobles, villages, bonnes tables et sites touristiques autour de Cour-Cheverny, au cœur du Loir-et-Cher.",
+    "shareImage": "/manus-storage/loire-vineyard-hero_0ede957b.jpg",
+    "noIndex": false
+  },
   "hero": { "index": "03", "kicker": "Curiosités à moins de 30 km", "title": "Ne cherchez pas loin. Le séjour est déjà tout autour.", "description": "Entre vignes, villages, patrimoine et tables de terroir, Cour-Cheverny est une invitation à composer des journées sans longs trajets.", "image": "/manus-storage/loire-vineyard-hero_0ede957b.jpg", "imageAlt": "Chemin au milieu des vignes de la Loire", "imageCaption": "Le Val de Loire, au fil des saisons" },
   "radius": { "distance": "30 km", "location": "Maison Vigneronne · Cour-Cheverny", "kicker": "Le cercle des belles idées", "title": "Une adresse qui laisse plus de temps pour ce que vous aimez faire.", "text": "Les repères ci-dessous sont proposés pour vous inspirer. Les distances restent indicatives et dépendent de l’itinéraire choisi ; ouvrez les liens pour préparer votre visite du jour." },
   "nearby": [

@@ -1,5 +1,6 @@
 import express from "express";
 import { createServer } from "http";
+import { readFileSync } from "fs";
 import path from "path";
 import { fileURLToPath } from "url";
 
@@ -9,6 +10,73 @@ const __dirname = path.dirname(__filename);
 const app = express();
 const server = createServer(app);
 const staticPath = path.resolve(__dirname, "public");
+const appShell = readFileSync(path.join(staticPath, "index.html"), "utf8");
+
+type SeoPage = {
+  path: string;
+  title: string;
+  description: string;
+  image: string;
+  noIndex: boolean;
+};
+
+type SeoManifest = {
+  siteUrl: string;
+  pages: SeoPage[];
+};
+
+const seoManifest = JSON.parse(
+  readFileSync(path.join(staticPath, "seo-manifest.json"), "utf8"),
+) as SeoManifest;
+const seoPages = new Map(seoManifest.pages.map((page) => [page.path, page]));
+
+function escapeHtml(value: string) {
+  return value
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;")
+    .replaceAll('"', "&quot;");
+}
+
+function replaceHeadTag(html: string, pattern: RegExp, tag: string) {
+  return pattern.test(html)
+    ? html.replace(pattern, tag)
+    : html.replace("</head>", `    ${tag}\n  </head>`);
+}
+
+function renderAppShell(page: SeoPage | undefined, pathname: string) {
+  const notFound = !page;
+  const canonicalPath = pathname === "/" ? "/" : pathname.replace(/\/+$/, "");
+  const canonical = `${seoManifest.siteUrl}${canonicalPath}`;
+  const title = page?.title || "Page introuvable | La Maison Vigneronne";
+  const description = page?.description || "Cette page n’existe pas ou a été déplacée.";
+  const robots = notFound || page?.noIndex ? "noindex, nofollow" : "index, follow";
+  const image = page?.image
+    ? page.image.startsWith("http")
+      ? page.image
+      : `${seoManifest.siteUrl}${page.image}`
+    : "";
+
+  let html = appShell.replace(/<title>[^<]*<\/title>/, `<title>${escapeHtml(title)}</title>`);
+  html = replaceHeadTag(html, /<meta\s+name="description"[^>]*>/i, `<meta name="description" content="${escapeHtml(description)}" />`);
+  html = replaceHeadTag(html, /<meta\s+name="robots"[^>]*>/i, `<meta name="robots" content="${robots}" />`);
+  html = replaceHeadTag(html, /<link\s+rel="canonical"[^>]*>/i, `<link rel="canonical" href="${escapeHtml(canonical)}" />`);
+  html = replaceHeadTag(html, /<meta\s+property="og:title"[^>]*>/i, `<meta property="og:title" content="${escapeHtml(title)}" />`);
+  html = replaceHeadTag(html, /<meta\s+property="og:description"[^>]*>/i, `<meta property="og:description" content="${escapeHtml(description)}" />`);
+  html = replaceHeadTag(html, /<meta\s+property="og:url"[^>]*>/i, `<meta property="og:url" content="${escapeHtml(canonical)}" />`);
+  html = replaceHeadTag(html, /<meta\s+name="twitter:card"[^>]*>/i, `<meta name="twitter:card" content="${image ? "summary_large_image" : "summary"}" />`);
+
+  if (image) {
+    html = replaceHeadTag(html, /<meta\s+property="og:image"[^>]*>/i, `<meta property="og:image" content="${escapeHtml(image)}" />`);
+    html = replaceHeadTag(html, /<meta\s+name="twitter:image"[^>]*>/i, `<meta name="twitter:image" content="${escapeHtml(image)}" />`);
+  } else {
+    html = html
+      .replace(/\s*<meta\s+property="og:image"[^>]*>/i, "")
+      .replace(/\s*<meta\s+name="twitter:image"[^>]*>/i, "");
+  }
+
+  return html;
+}
 
 app.disable("x-powered-by");
 
@@ -21,6 +89,10 @@ app.use((_req, res, next) => {
 
 app.get("/health", (_req, res) => {
   res.json({ status: "ok", service: "maison-loire-evasion" });
+});
+
+app.get("/index.html", (_req, res) => {
+  res.redirect(301, "/");
 });
 
 app.use(
@@ -40,10 +112,23 @@ app.get(["/admin", "/admin/"], (_req, res) => {
   res.sendFile(path.join(staticPath, "admin", "index.html"));
 });
 
-// React routes are handled in the browser. Direct links therefore receive the app shell.
-app.get("*", (_req, res) => {
+// Direct links receive an app shell with server-rendered SEO metadata.
+app.get("*", (req, res) => {
+  if (req.path !== "/" && req.path.endsWith("/")) {
+    const target = req.path.replace(/\/+$/, "") || "/";
+    const query = req.url.includes("?") ? req.url.slice(req.url.indexOf("?")) : "";
+    res.redirect(301, `${target}${query}`);
+    return;
+  }
+
+  if (path.extname(req.path)) {
+    res.status(404).type("text/plain").send("Not found");
+    return;
+  }
+
+  const page = req.path === "/404" ? undefined : seoPages.get(req.path);
   res.setHeader("Cache-Control", "no-cache");
-  res.sendFile(path.join(staticPath, "index.html"));
+  res.status(page ? 200 : 404).type("html").send(renderAppShell(page, req.path));
 });
 
 const port = Number.parseInt(process.env.PORT ?? "3000", 10);

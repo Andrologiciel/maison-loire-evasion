@@ -7,8 +7,9 @@
     "node": ">=20"
   },
   "scripts": {
-    "dev": "vite --host 0.0.0.0",
-    "build:client": "vite build",
+    "generate:seo": "node scripts/generate-seo.mjs",
+    "dev": "pnpm run generate:seo && vite --host 0.0.0.0",
+    "build:client": "pnpm run generate:seo && vite build",
     "build:server": "esbuild server/index.ts --platform=node --packages=external --bundle --format=esm --outdir=dist",
     "build": "pnpm run build:client && pnpm run build:server",
     "start": "node dist/index.js",

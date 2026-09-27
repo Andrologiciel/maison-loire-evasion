@@ -127,6 +127,16 @@ collections:
         file: client/src/content/home.json
         format: json
         fields:
+          - &seo_settings
+            label: Référencement (SEO)
+            name: seo
+            widget: object
+            summary: "Titre et description dans Google"
+            fields:
+              - { label: Titre SEO, name: title, widget: string, hint: "Titre propre à cette page, descriptif et naturel." }
+              - { label: Description SEO, name: description, widget: text, hint: "Résumé convaincant de la page pour les résultats de recherche." }
+              - { label: Image de partage, name: shareImage, widget: image, required: false, hint: "Image utilisée lors d’un partage sur les réseaux sociaux." }
+              - { label: Masquer cette page aux moteurs de recherche, name: noIndex, widget: boolean, default: false, hint: "Laissez désactivé pour les pages qui doivent apparaître dans Google." }
           - label: Bandeau principal
             name: hero
             widget: object
@@ -206,6 +216,7 @@ collections:
         file: client/src/content/maison.json
         format: json
         fields:
+          - *seo_settings
           - label: Bandeau principal
             name: hero
             widget: object
@@ -256,6 +267,7 @@ collections:
         file: client/src/content/chateaux.json
         format: json
         fields:
+          - *seo_settings
           - { label: Bandeau principal, name: hero, widget: object, fields: *hero_fields }
           - label: Introduction
             name: intro
@@ -291,6 +303,7 @@ collections:
         file: client/src/content/around.json
         format: json
         fields:
+          - *seo_settings
           - { label: Bandeau principal, name: hero, widget: object, fields: *hero_fields }
           - label: Rayon
             name: radius
@@ -325,6 +338,7 @@ collections:
         file: client/src/content/outdoors.json
         format: json
         fields:
+          - *seo_settings
           - { label: Bandeau principal, name: hero, widget: object, fields: *hero_fields }
           - { label: Introduction, name: intro, widget: object, fields: [{ label: Surtitre, name: kicker, widget: string }, { label: Titre, name: title, widget: string }, { label: Texte, name: text, widget: text }] }
           - label: Carte interactive
@@ -385,6 +399,7 @@ collections:
         file: client/src/content/useful.json
         format: json
         fields:
+          - *seo_settings
           - { label: Bandeau principal, name: hero, widget: object, fields: *hero_fields }
           - { label: Introduction, name: intro, widget: object, fields: [{ label: Surtitre, name: kicker, widget: string }, { label: Titre, name: title, widget: string }, { label: Texte, name: text, widget: text }] }
           - label: Carte interactive
@@ -452,6 +467,7 @@ collections:
         file: client/src/content/stays.json
         format: json
         fields:
+          - *seo_settings
           - { label: Bandeau principal, name: hero, widget: object, fields: *hero_fields }
           - { label: Introduction, name: intro, widget: object, fields: [{ label: Surtitre, name: kicker, widget: string }, { label: Titre, name: title, widget: string }, { label: Texte, name: text, widget: text }] }
           - { label: Filtres, name: filter, widget: object, fields: [{ label: Surtitre, name: kicker, widget: string }, { label: Texte, name: text, widget: string }] }
@@ -474,6 +490,7 @@ collections:
         file: client/src/content/leisure.json
         format: json
         fields:
+          - *seo_settings
           - { label: Bandeau principal, name: hero, widget: object, fields: *hero_fields }
           - { label: Introduction, name: intro, widget: object, fields: [{ label: Surtitre, name: kicker, widget: string }, { label: Titre, name: title, widget: string }, { label: Texte, name: text, widget: text }] }
           - { label: Titre des filtres, name: filterLabel, widget: string }
@@ -503,6 +520,7 @@ collections:
     slug: '{{fields.slug}}'
     summary: '{{fields.title}} — /{{fields.slug}}'
     fields:
+      - *seo_settings
       - { label: Titre, name: title, widget: string }
       - { label: Adresse de la page, name: slug, widget: string, pattern: ['^[a-z0-9]+(?:-[a-z0-9]+)*$', 'Utilisez uniquement des minuscules, chiffres et tirets'] }
       - { label: Libellé dans le menu, name: navigationLabel, widget: string }

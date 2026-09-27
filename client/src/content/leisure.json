@@ -1,4 +1,10 @@
 {
+  "seo": {
+    "title": "Activités et loisirs près de Cour-Cheverny",
+    "description": "ZooParc de Beauval, baignade, canoë, vélo et sorties nature : trouvez des activités pour toute la famille près de Cour-Cheverny.",
+    "shareImage": "/manus-storage/loire-cycling-route_eca40887.jpg",
+    "noIndex": false
+  },
   "hero": { "index": "07", "kicker": "Loisirs & activités", "title": "Mettre les pieds dans l’eau, la tête dehors et le temps de son côté.", "description": "Des journées avec les enfants, des sorties nature et des idées pour bouger ou se rafraîchir autour de la maison.", "image": "/manus-storage/loire-cycling-route_eca40887.jpg", "imageAlt": "Balade à vélo dans les paysages de Loire", "imageCaption": "Le Val de Loire, au fil des saisons" },
   "intro": { "kicker": "Les plaisirs du dehors", "title": "Une journée qui ressemble à vos vacances.", "text": "Les idées ci-dessous sont à choisir selon la saison, l’âge des voyageurs et l’envie du jour. Les liens mènent vers les prestataires ou organismes qui publient les conditions à jour." },
   "filterLabel": "Choisir une ambiance",

@@ -1,4 +1,10 @@
 {
+  "seo": {
+    "title": "Gîte pour 8 personnes à Cour-Cheverny | La Vigneronne",
+    "description": "Découvrez La Vigneronne, grande maison de caractère avec quatre chambres et jardin clos, idéale pour huit personnes à Cour-Cheverny.",
+    "shareImage": "/manus-storage/maison-exterieur_57eb8c38.jpg",
+    "noIndex": false
+  },
   "hero": { "index": "01", "kicker": "La maison", "title": "Le confort d’une grande maison, l’âme d’une adresse de village.", "description": "Une maison vigneronne généreuse, pensée pour huit voyageurs et les séjours qui rassemblent vraiment.", "image": "/manus-storage/maison-exterieur_57eb8c38.jpg", "imageAlt": "Vue du jardin de la Maison Vigneronne", "imageCaption": "Le Val de Loire, au fil des saisons" },
   "intro": { "kicker": "L’art de recevoir", "title": "Faire de la place aux vacances.", "paragraphs": ["Les beaux volumes de cette maison du XIXᵉ siècle se prêtent aux grandes tablées, aux retours de balade et aux pauses silencieuses. Salon chaleureux, salle à manger conviviale et cuisine ouverte composent le rez-de-chaussée.", "La cour en gravier, côté cuisine, invite aux cafés du matin comme aux apéritifs d’été. De l’autre côté, le jardin clos prend le relais pour les enfants, les lecteurs et les joueurs de pétanque."], "image": "/manus-storage/maison-salle-a-manger_55bd9810.jpg", "imageAlt": "Table dressée dans la salle à manger", "imageCaption": "Des espaces conçus pour vivre ensemble." },
   "comforts": { "kicker": "Les attentions de la maison", "title": "Tout est là, sans surenchère.", "items": [
