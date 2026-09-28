@@ -4,6 +4,7 @@
  */
 import { Cross, MapPin, ShoppingBasket, Stethoscope, X } from "lucide-react";
 import { useMemo, useState } from "react";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 type Category = "home" | "shop" | "health" | "service";
 type Filter = "all" | Exclude<Category, "home">;
@@ -19,13 +20,6 @@ export type UsefulPoint = {
   url?: string;
 };
 
-const filters: Array<{ id: Filter; label: string; icon: typeof MapPin }> = [
-  { id: "all", label: "Tout voir", icon: MapPin },
-  { id: "shop", label: "Commerces", icon: ShoppingBasket },
-  { id: "health", label: "Santé", icon: Cross },
-  { id: "service", label: "Services", icon: Stethoscope },
-];
-
 function glyphFor(category: Category) {
   if (category === "home") return "⌂";
   if (category === "shop") return "✦";
@@ -34,11 +28,17 @@ function glyphFor(category: Category) {
 }
 
 export default function UsefulPlacesMap({ kicker, title, text, places }: { kicker: string; title: string; text: string; places: UsefulPoint[] }) {
+  const { language } = useLanguage();
+  const filters: Array<{ id: Filter; label: string; icon: typeof MapPin }> = language === "en" ? [
+    { id: "all", label: "Show all", icon: MapPin }, { id: "shop", label: "Shops", icon: ShoppingBasket }, { id: "health", label: "Health", icon: Cross }, { id: "service", label: "Services", icon: Stethoscope },
+  ] : [
+    { id: "all", label: "Tout voir", icon: MapPin }, { id: "shop", label: "Commerces", icon: ShoppingBasket }, { id: "health", label: "Santé", icon: Cross }, { id: "service", label: "Services", icon: Stethoscope },
+  ];
   const [filter, setFilter] = useState<Filter>("all");
   const [selectedId, setSelectedId] = useState("home");
   const visiblePlaces = useMemo(
     () => places.filter((place) => place.category === "home" || filter === "all" || place.category === filter),
-    [filter],
+    [filter, places],
   );
   const selectedPlace = places.find((place) => place.id === selectedId) ?? places[0];
 
@@ -59,7 +59,7 @@ export default function UsefulPlacesMap({ kicker, title, text, places }: { kicke
         <p>{text}</p>
       </div>
 
-      <div className="map-filters" role="group" aria-label="Filtrer les lieux utiles sur la carte">
+      <div className="map-filters" role="group" aria-label={language === "en" ? "Filter useful places" : "Filtrer les lieux utiles sur la carte"}>
         {filters.map(({ id, label, icon: Icon }) => (
           <button type="button" key={id} className={filter === id ? "map-filter active" : "map-filter"} onClick={() => selectFilter(id)} aria-pressed={filter === id}>
             <Icon size={15} strokeWidth={1.6} /> {label}
@@ -67,9 +67,9 @@ export default function UsefulPlacesMap({ kicker, title, text, places }: { kicke
         ))}
       </div>
 
-      <div className="map-frame schematic-map useful-schematic-map" aria-label="Carte des commerces, pharmacies et établissements de santé">
-        <span className="map-distance-stamp">Rayon de<br /><strong>30 km</strong></span>
-        <svg viewBox="0 0 1000 570" className="map-sketch" role="img" aria-label="Schéma de Cour-Cheverny, Blois et des services utiles alentour">
+      <div className="map-frame schematic-map useful-schematic-map" aria-label={language === "en" ? "Map of shops, pharmacies and healthcare" : "Carte des commerces, pharmacies et établissements de santé"}>
+        <span className="map-distance-stamp">{language === "en" ? "Within" : "Rayon de"}<br /><strong>30 km</strong></span>
+        <svg viewBox="0 0 1000 570" className="map-sketch" role="img" aria-label={language === "en" ? "Cour-Cheverny, Blois and nearby services" : "Schéma de Cour-Cheverny, Blois et des services utiles alentour"}>
           <path className="map-river" d="M-40 131 C120 89 175 177 310 136 S535 68 652 124 S849 204 1050 97" />
           <path className="map-road major" d="M63 184 C207 260 320 281 442 343 S684 405 842 477" />
           <path className="map-road" d="M203 482 C345 407 443 394 550 349 S708 248 900 184" />
@@ -82,22 +82,22 @@ export default function UsefulPlacesMap({ kicker, title, text, places }: { kicke
         </svg>
 
         {visiblePlaces.map((place) => (
-          <button type="button" key={place.id} className={`map-marker useful-marker ${place.category} ${selectedId === place.id ? "selected" : ""}`} style={{ left: `${place.x}%`, top: `${place.y}%` }} onClick={() => setSelectedId(place.id)} aria-label={`Afficher ${place.title}`} aria-pressed={selectedId === place.id}>
+          <button type="button" key={place.id} className={`map-marker useful-marker ${place.category} ${selectedId === place.id ? "selected" : ""}`} style={{ left: `${place.x}%`, top: `${place.y}%` }} onClick={() => setSelectedId(place.id)} aria-label={`${language === "en" ? "Show" : "Afficher"} ${place.title}`} aria-pressed={selectedId === place.id}>
             <span>{glyphFor(place.category)}</span>
           </button>
         ))}
 
         <article className="map-point-card" aria-live="polite">
-          <button type="button" className="map-card-close" onClick={() => setSelectedId("home")} aria-label="Revenir au point de départ"><X size={13} /></button>
+          <button type="button" className="map-card-close" onClick={() => setSelectedId("home")} aria-label={language === "en" ? "Return to starting point" : "Revenir au point de départ"}><X size={13} /></button>
           <p>{selectedPlace.subtitle}</p>
           <h3>{selectedPlace.title}</h3>
           <span>{selectedPlace.description}</span>
-          {selectedPlace.url && <a href={selectedPlace.url} target="_blank" rel="noreferrer">Ouvrir la fiche ou la recherche ↗</a>}
+          {selectedPlace.url && <a href={selectedPlace.url} target="_blank" rel="noreferrer">{language === "en" ? "Open page or search" : "Ouvrir la fiche ou la recherche"} ↗</a>}
         </article>
       </div>
 
-      <div className="useful-map-legend" aria-label="Légende de la carte des utiles">
-        <span><span className="legend-dot home" /> Votre repère</span><span><span className="legend-dot shop" /> Commerces</span><span><span className="legend-dot health" /> Santé</span><span><span className="legend-dot service" /> Services</span>
+      <div className="useful-map-legend" aria-label={language === "en" ? "Useful places legend" : "Légende de la carte des utiles"}>
+        <span><span className="legend-dot home" /> {language === "en" ? "Your base" : "Votre repère"}</span><span><span className="legend-dot shop" /> {language === "en" ? "Shops" : "Commerces"}</span><span><span className="legend-dot health" /> {language === "en" ? "Health" : "Santé"}</span><span><span className="legend-dot service" /> Services</span>
       </div>
     </section>
   );

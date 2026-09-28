@@ -1,0 +1,70 @@
+{
+  "seo": {
+    "title": "Holiday cottage in Cour-Cheverny – La Vigneronne near the Loire Valley castles",
+    "description": "Stay at La Vigneronne, a characterful holiday home for 8 guests in Cour-Cheverny, near Cheverny, Chambord, Blois and Beauval Zoo.",
+    "shareImage": "/manus-storage/maison-exterieur_57eb8c38.jpg",
+    "noIndex": false
+  },
+  "hero": {
+    "vignetteImage": "/manus-storage/loire-vineyard-hero_0ede957b.jpg",
+    "mainImage": "/manus-storage/maison-exterieur_57eb8c38.jpg",
+    "discoveryLabel": "Discover the house",
+    "mainImageAlt": "The façade and garden of La Maison Vigneronne",
+    "vignetteImageAlt": "Vineyards in the Loire Valley",
+    "vignetteCaption": "Among the Cheverny vineyards",
+    "note": "A 10-minute walk from Château de Cheverny",
+    "location": "Cour-Cheverny · Loire Valley",
+    "postalCode": "41700",
+    "title": "A characterful home between castles and nature in the Loir-et-Cher",
+    "introduction": "A bright and spacious 19th-century house where families and friends can gather in the heart of the Loire Valley castles and vineyards.",
+    "badgeLine1": "Winegrower's",
+    "badgeLine2": "house",
+    "badgeLine3": "since 1850"
+  },
+  "amenitiesLabel": "The house at a glance",
+  "amenities": [
+    { "icon": "users", "value": "8", "label": "guests" },
+    { "icon": "bed", "value": "4", "label": "bedrooms" },
+    { "icon": "bath", "value": "2", "label": "bathrooms" },
+    { "icon": "tree", "value": "700 m²", "label": "enclosed garden" }
+  ],
+  "story": {
+    "verticalNote": "The house · the garden · the vineyards",
+    "image": "/manus-storage/maison-salon_4bae837c.jpg",
+    "imageAlt": "Bright, welcoming living room",
+    "kicker": "A family home",
+    "title": "Space to gather, room to breathe.",
+    "paragraphs": [
+      "La Maison Vigneronne welcomes up to eight guests in a peaceful village setting. Its generous living spaces were designed for shared meals, long conversations and unhurried evenings.",
+      "Outside, the enclosed garden and courtyard offer children, readers and pétanque players their own favourite corner."
+    ],
+    "linkLabel": "Step inside"
+  },
+  "territory": {
+    "largeImage": "/manus-storage/maison-terrasse_f42d2c07.jpg",
+    "largeImageCaption": "The courtyard in the morning, the garden in the evening.",
+    "largeImageAlt": "Sunny terrace at the house",
+    "text": "Here, major sights fit naturally alongside simple pleasures. Walk to Cheverny, cycle towards Chambord and enjoy the village shops just a few minutes away.",
+    "kicker": "An ideal base",
+    "smallImage": "/manus-storage/maison-salle-a-manger_55bd9810.jpg",
+    "smallImageAlt": "Dining room at La Maison Vigneronne",
+    "title": "Explore, discover, then come home slowly.",
+    "linkLabel": "Explore the area"
+  },
+  "routes": {
+    "kicker": "Plan your stay",
+    "title": "A different escape every day.",
+    "introduction": "Three ways to set off from the house while staying close to what matters.",
+    "items": [
+      { "to": "/chateaux", "icon": "castle", "title": "The Loire castles", "text": "Cheverny on foot, Chambord by bike, Blois and quieter historic estates." },
+      { "to": "/autour-de-nous", "icon": "wine", "title": "Within 30 kilometres", "text": "Vineyards, villages, gardens, heritage and local food for every kind of day." },
+      { "to": "/balades", "icon": "bike", "title": "Walking and cycling", "text": "Quiet lanes, Sologne paths and marked routes starting around Cheverny." }
+    ]
+  },
+  "cta": {
+    "image": "/manus-storage/maison-facade_71465e76.jpg",
+    "imageAlt": "Façade of La Maison Vigneronne",
+    "kicker": "Your Loire Valley home",
+    "title": "Ready to make yourself at home?"
+  }
+}

@@ -15,6 +15,7 @@ import { Route, Switch } from "wouter";
 import ErrorBoundary from "./components/ErrorBoundary";
 import { ThemeProvider } from "./contexts/ThemeContext";
 import SeoManager from "./components/SeoManager";
+import { LanguageProvider } from "./contexts/LanguageContext";
 
 function Router() {
   return (
@@ -27,6 +28,16 @@ function Router() {
       <Route path="/commerces-utiles" component={Useful} />
       <Route path="/idees-de-sejour" component={Stays} />
       <Route path="/loisirs" component={Leisure} />
+      <Route path="/en" component={Home} />
+      <Route path="/en/maison" component={Maison} />
+      <Route path="/en/chateaux" component={Chateaux} />
+      <Route path="/en/autour-de-nous" component={Around} />
+      <Route path="/en/balades" component={Outdoors} />
+      <Route path="/en/commerces-utiles" component={Useful} />
+      <Route path="/en/idees-de-sejour" component={Stays} />
+      <Route path="/en/loisirs" component={Leisure} />
+      <Route path="/en/404" component={NotFound} />
+      <Route path="/en/:slug">{(params) => <CustomPage slug={params.slug} />}</Route>
       <Route path="/404" component={NotFound} />
       <Route path="/:slug">{(params) => <CustomPage slug={params.slug} />}</Route>
       <Route component={NotFound} />
@@ -38,11 +49,13 @@ export default function App() {
   return (
     <ErrorBoundary>
       <ThemeProvider defaultTheme="light">
-        <TooltipProvider>
-          <SeoManager />
-          <Toaster />
-          <Router />
-        </TooltipProvider>
+        <LanguageProvider>
+          <TooltipProvider>
+            <SeoManager />
+            <Toaster />
+            <Router />
+          </TooltipProvider>
+        </LanguageProvider>
       </ThemeProvider>
     </ErrorBoundary>
   );

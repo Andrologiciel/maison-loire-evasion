@@ -6,11 +6,16 @@ import { ArrowUpRight, ExternalLink, MapPinned, Phone } from "lucide-react";
 import UsefulPlacesMap from "@/components/UsefulPlacesMap";
 import PageHero from "@/components/PageHero";
 import SiteLayout from "@/components/SiteLayout";
-import content from "@/content/useful.json";
+import frenchContent from "@/content/useful.json";
+import englishContent from "@/content/useful.en.json";
 import { contentIcon } from "@/lib/contentIcons";
 import type { UsefulPoint } from "@/components/UsefulPlacesMap";
+import { useLocalizedContent } from "@/lib/useLocalizedContent";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 export default function Useful() {
+  const content = useLocalizedContent(frenchContent, englishContent);
+  const { language } = useLanguage();
   return (
     <SiteLayout>
       <PageHero {...content.hero} />
@@ -26,7 +31,7 @@ export default function Useful() {
         <div className="live-search-heading"><p className="eyebrow">{content.searches.kicker}</p><h2>{content.searches.title}</h2></div>
         <div className="live-search-grid">
           {content.searches.items.map(({ icon, title, text, url }) => { const Icon = contentIcon(icon); return (
-            <a key={title} className="live-search-card" href={url} target="_blank" rel="noreferrer"><Icon size={23} strokeWidth={1.4} /><h3>{title}</h3><p>{text}</p><span>Ouvrir la carte <ArrowUpRight size={15} /></span></a>
+            <a key={title} className="live-search-card" href={url} target="_blank" rel="noreferrer"><Icon size={23} strokeWidth={1.4} /><h3>{title}</h3><p>{text}</p><span>{language === "en" ? "Open map" : "Ouvrir la carte"} <ArrowUpRight size={15} /></span></a>
           );})}
         </div>
       </section>

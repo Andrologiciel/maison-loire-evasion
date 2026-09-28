@@ -6,10 +6,15 @@ import { ArrowUpRight, Bike, Footprints, Route, ShieldAlert } from "lucide-react
 import InteractiveMap from "@/components/InteractiveMap";
 import PageHero from "@/components/PageHero";
 import SiteLayout from "@/components/SiteLayout";
-import content from "@/content/outdoors.json";
+import frenchContent from "@/content/outdoors.json";
+import englishContent from "@/content/outdoors.en.json";
 import type { MapPoint } from "@/components/InteractiveMap";
+import { useLocalizedContent } from "@/lib/useLocalizedContent";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 export default function Outdoors() {
+  const content = useLocalizedContent(frenchContent, englishContent);
+  const { language } = useLanguage();
   return (
     <SiteLayout>
       <PageHero {...content.hero} />
@@ -30,7 +35,7 @@ export default function Outdoors() {
               <article key={item.title}>
                 <span>0{index + 1}</span>
                 <div><h3>{item.title}</h3><p>{item.text}</p></div>
-                <a href={item.url} target="_blank" rel="noreferrer" aria-label={`Consulter l'itinéraire ${item.title}`}><ArrowUpRight size={17} /></a>
+                <a href={item.url} target="_blank" rel="noreferrer" aria-label={`${language === "en" ? "View route" : "Consulter l’itinéraire"} ${item.title}`}><ArrowUpRight size={17} /></a>
               </article>
             ))}
           </div>
@@ -49,7 +54,7 @@ export default function Outdoors() {
             <article className="walk-row" key={item.title}>
               <Route size={20} strokeWidth={1.45} />
               <div><p className="walk-details">{item.details}</p><h3>{item.title}</h3><p>{item.text}</p></div>
-              <a href={item.url} target="_blank" rel="noreferrer">Fiche & tracé <ArrowUpRight size={15} /></a>
+              <a href={item.url} target="_blank" rel="noreferrer">{language === "en" ? "Route details" : "Fiche & tracé"} <ArrowUpRight size={15} /></a>
             </article>
           ))}
         </div>

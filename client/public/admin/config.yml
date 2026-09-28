@@ -126,7 +126,7 @@ collections:
         label: Accueil
         file: client/src/content/home.json
         format: json
-        fields:
+        fields: &home_page_fields
           - &seo_settings
             label: Référencement (SEO)
             name: seo
@@ -215,7 +215,7 @@ collections:
         label: La maison
         file: client/src/content/maison.json
         format: json
-        fields:
+        fields: &maison_page_fields
           - *seo_settings
           - label: Bandeau principal
             name: hero
@@ -266,7 +266,7 @@ collections:
         label: Châteaux
         file: client/src/content/chateaux.json
         format: json
-        fields:
+        fields: &chateaux_page_fields
           - *seo_settings
           - { label: Bandeau principal, name: hero, widget: object, fields: *hero_fields }
           - label: Introduction
@@ -302,7 +302,7 @@ collections:
         label: Autour de nous
         file: client/src/content/around.json
         format: json
-        fields:
+        fields: &around_page_fields
           - *seo_settings
           - { label: Bandeau principal, name: hero, widget: object, fields: *hero_fields }
           - label: Rayon
@@ -337,7 +337,7 @@ collections:
         label: À pied et à vélo
         file: client/src/content/outdoors.json
         format: json
-        fields:
+        fields: &outdoors_page_fields
           - *seo_settings
           - { label: Bandeau principal, name: hero, widget: object, fields: *hero_fields }
           - { label: Introduction, name: intro, widget: object, fields: [{ label: Surtitre, name: kicker, widget: string }, { label: Titre, name: title, widget: string }, { label: Texte, name: text, widget: text }] }
@@ -398,7 +398,7 @@ collections:
         label: Commerces utiles
         file: client/src/content/useful.json
         format: json
-        fields:
+        fields: &useful_page_fields
           - *seo_settings
           - { label: Bandeau principal, name: hero, widget: object, fields: *hero_fields }
           - { label: Introduction, name: intro, widget: object, fields: [{ label: Surtitre, name: kicker, widget: string }, { label: Titre, name: title, widget: string }, { label: Texte, name: text, widget: text }] }
@@ -466,7 +466,7 @@ collections:
         label: Idées de séjour
         file: client/src/content/stays.json
         format: json
-        fields:
+        fields: &stays_page_fields
           - *seo_settings
           - { label: Bandeau principal, name: hero, widget: object, fields: *hero_fields }
           - { label: Introduction, name: intro, widget: object, fields: [{ label: Surtitre, name: kicker, widget: string }, { label: Titre, name: title, widget: string }, { label: Texte, name: text, widget: text }] }
@@ -489,7 +489,7 @@ collections:
         label: Loisirs
         file: client/src/content/leisure.json
         format: json
-        fields:
+        fields: &leisure_page_fields
           - *seo_settings
           - { label: Bandeau principal, name: hero, widget: object, fields: *hero_fields }
           - { label: Introduction, name: intro, widget: object, fields: [{ label: Surtitre, name: kicker, widget: string }, { label: Titre, name: title, widget: string }, { label: Texte, name: text, widget: text }] }
@@ -508,6 +508,47 @@ collections:
               - { label: Image, name: image, widget: image }
           - { label: Note pratique, name: note, widget: text }
 
+  - name: english_pages
+    label: English — Pages du site
+    files:
+      - name: general_en
+        label: English — Identity, navigation and footer
+        file: client/src/content/site.en.json
+        format: json
+        fields:
+          - label: Identity
+            name: identity
+            widget: object
+            fields:
+              - { label: Name — line 1, name: brandLine1, widget: string }
+              - { label: Name — line 2, name: brandLine2, widget: string }
+              - { label: Location, name: location, widget: string }
+          - label: Navigation labels
+            name: navigation
+            widget: object
+            fields:
+              - { label: Home, name: homeLabel, widget: string }
+              - { label: Castles, name: castlesLabel, widget: string }
+              - { label: Around us, name: aroundLabel, widget: string }
+              - { label: Walking and cycling, name: outdoorsLabel, widget: string }
+              - { label: Useful places, name: usefulLabel, widget: string }
+              - { label: Stay ideas, name: staysLabel, widget: string }
+              - { label: Activities, name: leisureLabel, widget: string }
+          - label: Footer
+            name: footer
+            widget: object
+            fields:
+              - { label: Tagline, name: tagline, widget: text }
+              - { label: Practical note, name: note, widget: text }
+      - { name: home_en, label: English — Home, file: client/src/content/home.en.json, format: json, fields: *home_page_fields }
+      - { name: maison_en, label: English — The house, file: client/src/content/maison.en.json, format: json, fields: *maison_page_fields }
+      - { name: chateaux_en, label: English — Castles, file: client/src/content/chateaux.en.json, format: json, fields: *chateaux_page_fields }
+      - { name: around_en, label: English — Around us, file: client/src/content/around.en.json, format: json, fields: *around_page_fields }
+      - { name: outdoors_en, label: English — Walking and cycling, file: client/src/content/outdoors.en.json, format: json, fields: *outdoors_page_fields }
+      - { name: useful_en, label: English — Useful places, file: client/src/content/useful.en.json, format: json, fields: *useful_page_fields }
+      - { name: stays_en, label: English — Stay ideas, file: client/src/content/stays.en.json, format: json, fields: *stays_page_fields }
+      - { name: leisure_en, label: English — Activities, file: client/src/content/leisure.en.json, format: json, fields: *leisure_page_fields }
+
   - name: custom_pages
     label: Pages supplémentaires
     label_singular: Nouvelle page
@@ -519,7 +560,7 @@ collections:
     identifier_field: title
     slug: '{{fields.slug}}'
     summary: '{{fields.title}} — /{{fields.slug}}'
-    fields:
+    fields: &custom_page_fields
       - *seo_settings
       - { label: Titre, name: title, widget: string }
       - { label: Adresse de la page, name: slug, widget: string, pattern: ['^[a-z0-9]+(?:-[a-z0-9]+)*$', 'Utilisez uniquement des minuscules, chiffres et tirets'] }
@@ -543,3 +584,16 @@ collections:
           - { label: Position de l’image, name: imagePosition, widget: select, default: right, options: [{ label: À gauche, value: left }, { label: À droite, value: right }, { label: En pleine largeur, value: full }] }
           - { label: Libellé du bouton, name: buttonLabel, widget: string, required: false }
           - { label: Adresse du bouton, name: buttonUrl, widget: string, required: false }
+
+  - name: custom_pages_en
+    label: English — Additional pages
+    label_singular: New English page
+    folder: client/src/content/pages-en
+    create: true
+    delete: true
+    extension: json
+    format: json
+    identifier_field: title
+    slug: '{{fields.slug}}'
+    summary: '{{fields.title}} — /en/{{fields.slug}}'
+    fields: *custom_page_fields

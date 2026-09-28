@@ -14,6 +14,8 @@ const appShell = readFileSync(path.join(staticPath, "index.html"), "utf8");
 
 type SeoPage = {
   path: string;
+  language: "fr" | "en";
+  alternatePath?: string;
   title: string;
   description: string;
   image: string;
@@ -46,10 +48,11 @@ function replaceHeadTag(html: string, pattern: RegExp, tag: string) {
 
 function renderAppShell(page: SeoPage | undefined, pathname: string) {
   const notFound = !page;
+  const language = page?.language ?? (pathname === "/en" || pathname.startsWith("/en/") ? "en" : "fr");
   const canonicalPath = pathname === "/" ? "/" : pathname.replace(/\/+$/, "");
   const canonical = `${seoManifest.siteUrl}${canonicalPath}`;
-  const title = page?.title || "Page introuvable | La Maison Vigneronne";
-  const description = page?.description || "Cette page n’existe pas ou a été déplacée.";
+  const title = page?.title || (language === "en" ? "Page not found | La Maison Vigneronne" : "Page introuvable | La Maison Vigneronne");
+  const description = page?.description || (language === "en" ? "This page does not exist or has been moved." : "Cette page n’existe pas ou a été déplacée.");
   const robots = notFound || page?.noIndex ? "noindex, nofollow" : "index, follow";
   const image = page?.image
     ? page.image.startsWith("http")
@@ -57,14 +60,24 @@ function renderAppShell(page: SeoPage | undefined, pathname: string) {
       : `${seoManifest.siteUrl}${page.image}`
     : "";
 
-  let html = appShell.replace(/<title>[^<]*<\/title>/, `<title>${escapeHtml(title)}</title>`);
+  let html = appShell
+    .replace(/<html\s+lang="[^"]+">/i, `<html lang="${language}">`)
+    .replace(/<title>[^<]*<\/title>/, `<title>${escapeHtml(title)}</title>`);
   html = replaceHeadTag(html, /<meta\s+name="description"[^>]*>/i, `<meta name="description" content="${escapeHtml(description)}" />`);
   html = replaceHeadTag(html, /<meta\s+name="robots"[^>]*>/i, `<meta name="robots" content="${robots}" />`);
   html = replaceHeadTag(html, /<link\s+rel="canonical"[^>]*>/i, `<link rel="canonical" href="${escapeHtml(canonical)}" />`);
   html = replaceHeadTag(html, /<meta\s+property="og:title"[^>]*>/i, `<meta property="og:title" content="${escapeHtml(title)}" />`);
   html = replaceHeadTag(html, /<meta\s+property="og:description"[^>]*>/i, `<meta property="og:description" content="${escapeHtml(description)}" />`);
   html = replaceHeadTag(html, /<meta\s+property="og:url"[^>]*>/i, `<meta property="og:url" content="${escapeHtml(canonical)}" />`);
+  html = replaceHeadTag(html, /<meta\s+property="og:locale"[^>]*>/i, `<meta property="og:locale" content="${language === "en" ? "en_GB" : "fr_FR"}" />`);
   html = replaceHeadTag(html, /<meta\s+name="twitter:card"[^>]*>/i, `<meta name="twitter:card" content="${image ? "summary_large_image" : "summary"}" />`);
+
+  const basePath = language === "en" ? (pathname === "/en" ? "/" : pathname.slice(3)) : pathname;
+  const frenchPath = language === "fr" ? pathname : page?.alternatePath ?? basePath;
+  const englishPath = language === "en" ? pathname : page?.alternatePath ?? (basePath === "/" ? "/en" : `/en${basePath}`);
+  html = replaceHeadTag(html, /<link\s+rel="alternate"\s+hreflang="fr"[^>]*>/i, `<link rel="alternate" hreflang="fr" href="${escapeHtml(`${seoManifest.siteUrl}${frenchPath}`)}" />`);
+  html = replaceHeadTag(html, /<link\s+rel="alternate"\s+hreflang="en"[^>]*>/i, `<link rel="alternate" hreflang="en" href="${escapeHtml(`${seoManifest.siteUrl}${englishPath}`)}" />`);
+  html = replaceHeadTag(html, /<link\s+rel="alternate"\s+hreflang="x-default"[^>]*>/i, `<link rel="alternate" hreflang="x-default" href="${escapeHtml(`${seoManifest.siteUrl}${frenchPath}`)}" />`);
 
   if (image) {
     html = replaceHeadTag(html, /<meta\s+property="og:image"[^>]*>/i, `<meta property="og:image" content="${escapeHtml(image)}" />`);
@@ -114,6 +127,14 @@ app.get(["/admin", "/admin/"], (_req, res) => {
 
 // Direct links receive an app shell with server-rendered SEO metadata.
 app.get("*", (req, res) => {
+  if (req.path === "/" && !/(?:^|;\s*)site-language=(?:fr|en)(?:;|$)/.test(req.headers.cookie ?? "")) {
+    const preferredLanguage = req.acceptsLanguages("en", "fr");
+    if (preferredLanguage === "en") {
+      res.redirect(302, "/en");
+      return;
+    }
+  }
+
   if (req.path !== "/" && req.path.endsWith("/")) {
     const target = req.path.replace(/\/+$/, "") || "/";
     const query = req.url.includes("?") ? req.url.slice(req.url.indexOf("?")) : "";
@@ -126,8 +147,9 @@ app.get("*", (req, res) => {
     return;
   }
 
-  const page = req.path === "/404" ? undefined : seoPages.get(req.path);
+  const page = req.path === "/404" || req.path === "/en/404" ? undefined : seoPages.get(req.path);
   res.setHeader("Cache-Control", "no-cache");
+  res.setHeader("Content-Language", page?.language ?? (req.path.startsWith("/en") ? "en" : "fr"));
   res.status(page ? 200 : 404).type("html").send(renderAppShell(page, req.path));
 });
 

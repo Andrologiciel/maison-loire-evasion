@@ -3,9 +3,11 @@ import PageHero from "@/components/PageHero";
 import SiteLayout from "@/components/SiteLayout";
 import { findCustomPage } from "@/lib/customPages";
 import NotFound from "@/pages/NotFound";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 export default function CustomPage({ slug }: { slug: string }) {
-  const page = findCustomPage(slug);
+  const { language } = useLanguage();
+  const page = findCustomPage(slug, language);
   if (!page) return <NotFound />;
 
   return (

@@ -9,10 +9,15 @@ import {
 } from "lucide-react";
 import { Link } from "wouter";
 import SiteLayout, { ReservationButtons } from "@/components/SiteLayout";
-import content from "@/content/home.json";
+import frenchContent from "@/content/home.json";
+import englishContent from "@/content/home.en.json";
 import { contentIcon } from "@/lib/contentIcons";
+import { useLocalizedContent } from "@/lib/useLocalizedContent";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 export default function Home() {
+  const content = useLocalizedContent(frenchContent, englishContent);
+  const { localizedPath, language } = useLanguage();
   return (
     <SiteLayout>
       <section className="home-hero">
@@ -27,7 +32,7 @@ export default function Home() {
           <p className="hero-mini-note">{content.hero.note}</p>
         </div>
 
-        <div className="hero-photo-stack" aria-label="Aperçu de la maison">
+        <div className="hero-photo-stack" aria-label={language === "en" ? "A glimpse of the house" : "Aperçu de la maison"}>
           <img
             className="hero-photo-main"
             src={content.hero.mainImage}
@@ -73,7 +78,7 @@ export default function Home() {
           <p className="eyebrow">{content.story.kicker}</p>
           <h2>{content.story.title}</h2>
           {content.story.paragraphs.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}
-          <Link href="/maison" className="arrow-link">{content.story.linkLabel} <ChevronRight size={18} /></Link>
+          <Link href={localizedPath("/maison")} className="arrow-link">{content.story.linkLabel} <ChevronRight size={18} /></Link>
         </div>
       </section>
 
@@ -86,7 +91,7 @@ export default function Home() {
           <p className="eyebrow"><MapPin size={14} /> {content.territory.kicker}</p>
           <h2>{content.territory.title}</h2>
           <p>{content.territory.text}</p>
-          <Link className="underline-link" href="/autour-de-nous">{content.territory.linkLabel}</Link>
+          <Link className="underline-link" href={localizedPath("/autour-de-nous")}>{content.territory.linkLabel}</Link>
         </div>
         <div className="portrait-image small-image">
           <img src={content.territory.smallImage} alt={content.territory.smallImageAlt} />
@@ -102,7 +107,7 @@ export default function Home() {
         <div className="route-list">
           {content.routes.items.map(({ to, icon, title, text }, index) => {
             const Icon = contentIcon(icon);
-            return (<Link href={to} className="route-item" key={to}>
+            return (<Link href={localizedPath(to)} className="route-item" key={to}>
               <span className="route-number">{String(index + 1).padStart(2, "0")}</span>
               <Icon className="route-icon" size={25} strokeWidth={1.5} />
               <div>

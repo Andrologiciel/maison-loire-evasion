@@ -4,6 +4,7 @@
  */
 import { Bike, Castle, Grape, House, MapPin, Route, X } from "lucide-react";
 import { useMemo, useState } from "react";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 type Category = "home" | "castle" | "walk" | "bike" | "terroir";
 type Filter = "all" | Exclude<Category, "home">;
@@ -19,14 +20,6 @@ export type MapPoint = {
   url?: string;
 };
 
-const filters: Array<{ id: Filter; label: string; icon: typeof Castle }> = [
-  { id: "all", label: "Tout voir", icon: MapPin },
-  { id: "castle", label: "Châteaux", icon: Castle },
-  { id: "walk", label: "Randonnées", icon: Route },
-  { id: "bike", label: "Vélo", icon: Bike },
-  { id: "terroir", label: "Terroir", icon: Grape },
-];
-
 function glyphFor(category: Category) {
   if (category === "home") return "⌂";
   if (category === "castle") return "⌁";
@@ -36,11 +29,17 @@ function glyphFor(category: Category) {
 }
 
 export default function InteractiveMap({ kicker, title, text, points }: { kicker: string; title: string; text: string; points: MapPoint[] }) {
+  const { language } = useLanguage();
+  const filters: Array<{ id: Filter; label: string; icon: typeof Castle }> = language === "en" ? [
+    { id: "all", label: "Show all", icon: MapPin }, { id: "castle", label: "Castles", icon: Castle }, { id: "walk", label: "Walks", icon: Route }, { id: "bike", label: "Cycling", icon: Bike }, { id: "terroir", label: "Local food & wine", icon: Grape },
+  ] : [
+    { id: "all", label: "Tout voir", icon: MapPin }, { id: "castle", label: "Châteaux", icon: Castle }, { id: "walk", label: "Randonnées", icon: Route }, { id: "bike", label: "Vélo", icon: Bike }, { id: "terroir", label: "Terroir", icon: Grape },
+  ];
   const [filter, setFilter] = useState<Filter>("all");
   const [selectedId, setSelectedId] = useState("home");
   const visiblePoints = useMemo(
     () => points.filter((point) => point.category === "home" || filter === "all" || point.category === filter),
-    [filter],
+    [filter, points],
   );
   const selectedPoint = points.find((point) => point.id === selectedId) ?? points[0];
 
@@ -61,7 +60,7 @@ export default function InteractiveMap({ kicker, title, text, points }: { kicker
         <p>{text}</p>
       </div>
 
-      <div className="map-filters" role="group" aria-label="Filtrer les points sur la carte">
+      <div className="map-filters" role="group" aria-label={language === "en" ? "Filter map points" : "Filtrer les points sur la carte"}>
         {filters.map(({ id, label, icon: Icon }) => (
           <button type="button" key={id} className={filter === id ? "map-filter active" : "map-filter"} onClick={() => selectFilter(id)} aria-pressed={filter === id}>
             <Icon size={15} strokeWidth={1.6} /> {label}
@@ -69,9 +68,9 @@ export default function InteractiveMap({ kicker, title, text, points }: { kicker
         ))}
       </div>
 
-      <div className="map-frame schematic-map" aria-label="Carte interactive des environs de Cour-Cheverny">
-        <span className="map-distance-stamp">Autour de<br /><strong>Cour-Cheverny</strong></span>
-        <svg viewBox="0 0 1000 570" className="map-sketch" role="img" aria-label="Schéma géographique des alentours de Cour-Cheverny">
+      <div className="map-frame schematic-map" aria-label={language === "en" ? "Interactive map around Cour-Cheverny" : "Carte interactive des environs de Cour-Cheverny"}>
+        <span className="map-distance-stamp">{language === "en" ? "Around" : "Autour de"}<br /><strong>Cour-Cheverny</strong></span>
+        <svg viewBox="0 0 1000 570" className="map-sketch" role="img" aria-label={language === "en" ? "Map of the Cour-Cheverny area" : "Schéma géographique des alentours de Cour-Cheverny"}>
           <path className="map-river" d="M-40 131 C120 89 175 177 310 136 S535 68 652 124 S849 204 1050 97" />
           <path className="map-road major" d="M63 184 C207 260 320 281 442 343 S684 405 842 477" />
           <path className="map-road" d="M203 482 C345 407 443 394 550 349 S708 248 900 184" />
@@ -92,7 +91,7 @@ export default function InteractiveMap({ kicker, title, text, points }: { kicker
             className={`map-marker ${point.category} ${selectedId === point.id ? "selected" : ""}`}
             style={{ left: `${point.x}%`, top: `${point.y}%` }}
             onClick={() => setSelectedId(point.id)}
-            aria-label={`Afficher ${point.title}`}
+            aria-label={`${language === "en" ? "Show" : "Afficher"} ${point.title}`}
             aria-pressed={selectedId === point.id}
           >
             <span>{glyphFor(point.category)}</span>
@@ -100,16 +99,16 @@ export default function InteractiveMap({ kicker, title, text, points }: { kicker
         ))}
 
         <article className="map-point-card" aria-live="polite">
-          <button type="button" className="map-card-close" onClick={() => setSelectedId("home")} aria-label="Revenir au point de départ"><X size={13} /></button>
+          <button type="button" className="map-card-close" onClick={() => setSelectedId("home")} aria-label={language === "en" ? "Return to starting point" : "Revenir au point de départ"}><X size={13} /></button>
           <p>{selectedPoint.subtitle}</p>
           <h3>{selectedPoint.title}</h3>
           <span>{selectedPoint.description}</span>
-          {selectedPoint.url && <a href={selectedPoint.url} target="_blank" rel="noreferrer">Ouvrir la fiche officielle ↗</a>}
+          {selectedPoint.url && <a href={selectedPoint.url} target="_blank" rel="noreferrer">{language === "en" ? "Open official page" : "Ouvrir la fiche officielle"} ↗</a>}
         </article>
       </div>
 
-      <div className="map-legend" aria-label="Légende de la carte">
-        <span><House size={13} /> La maison</span><span><Castle size={13} /> Châteaux</span><span><Route size={13} /> Randonnées</span><span><Bike size={13} /> Vélo</span><span><Grape size={13} /> Terroir</span>
+      <div className="map-legend" aria-label={language === "en" ? "Map legend" : "Légende de la carte"}>
+        <span><House size={13} /> {language === "en" ? "The house" : "La maison"}</span><span><Castle size={13} /> {language === "en" ? "Castles" : "Châteaux"}</span><span><Route size={13} /> {language === "en" ? "Walks" : "Randonnées"}</span><span><Bike size={13} /> {language === "en" ? "Cycling" : "Vélo"}</span><span><Grape size={13} /> {language === "en" ? "Local produce" : "Terroir"}</span>
       </div>
     </section>
   );

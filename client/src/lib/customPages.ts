@@ -32,11 +32,21 @@ const modules = import.meta.glob<{ default: CustomPageContent }>("../content/pag
   eager: true,
 });
 
+const englishModules = import.meta.glob<{ default: CustomPageContent }>("../content/pages-en/*.json", {
+  eager: true,
+});
+
 export const customPages = Object.values(modules)
   .map((module) => module.default)
   .filter((page) => page?.slug)
   .sort((a, b) => (a.navigationOrder ?? 100) - (b.navigationOrder ?? 100));
 
-export function findCustomPage(slug: string) {
-  return customPages.find((page) => page.slug === slug);
+export const customPagesEn = Object.values(englishModules)
+  .map((module) => module.default)
+  .filter((page) => page?.slug)
+  .sort((a, b) => (a.navigationOrder ?? 100) - (b.navigationOrder ?? 100));
+
+export function findCustomPage(slug: string, language: "fr" | "en" = "fr") {
+  const pages = language === "en" ? customPagesEn : customPages;
+  return pages.find((page) => page.slug === slug);
 }

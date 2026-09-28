@@ -5,10 +5,13 @@
 import { Check, Sparkles } from "lucide-react";
 import PageHero from "@/components/PageHero";
 import SiteLayout, { ReservationButtons } from "@/components/SiteLayout";
-import content from "@/content/maison.json";
+import frenchContent from "@/content/maison.json";
+import englishContent from "@/content/maison.en.json";
 import { contentIcon } from "@/lib/contentIcons";
+import { useLocalizedContent } from "@/lib/useLocalizedContent";
 
 export default function Maison() {
+  const content = useLocalizedContent(frenchContent, englishContent);
   return (
     <SiteLayout>
       <PageHero

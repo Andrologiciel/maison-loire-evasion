@@ -5,9 +5,14 @@
 import { ArrowUpRight, Castle, Footprints, Navigation, Sparkles } from "lucide-react";
 import PageHero from "@/components/PageHero";
 import SiteLayout from "@/components/SiteLayout";
-import content from "@/content/chateaux.json";
+import frenchContent from "@/content/chateaux.json";
+import englishContent from "@/content/chateaux.en.json";
+import { useLocalizedContent } from "@/lib/useLocalizedContent";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 export default function Chateaux() {
+  const content = useLocalizedContent(frenchContent, englishContent);
+  const { localizedPath } = useLanguage();
   return (
     <SiteLayout>
       <PageHero {...content.hero} />
@@ -47,7 +52,7 @@ export default function Chateaux() {
           <h2>{content.note.title}</h2>
         </div>
         <p>{content.note.text}</p>
-        <a href={content.note.link} className="heritage-link">{content.note.linkLabel} <ArrowUpRight size={16} /></a>
+        <a href={localizedPath(content.note.link)} className="heritage-link">{content.note.linkLabel} <ArrowUpRight size={16} /></a>
       </section>
     </SiteLayout>
   );

@@ -5,10 +5,15 @@
 import { ArrowUpRight, CircleDotDashed, MapPin } from "lucide-react";
 import PageHero from "@/components/PageHero";
 import SiteLayout from "@/components/SiteLayout";
-import content from "@/content/around.json";
+import frenchContent from "@/content/around.json";
+import englishContent from "@/content/around.en.json";
 import { contentIcon } from "@/lib/contentIcons";
+import { useLocalizedContent } from "@/lib/useLocalizedContent";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 export default function Around() {
+  const content = useLocalizedContent(frenchContent, englishContent);
+  const { language } = useLanguage();
   return (
     <SiteLayout>
       <PageHero {...content.hero} />
@@ -34,7 +39,7 @@ export default function Around() {
             <p className="nearby-place">{place}</p>
             <h3>{title}</h3>
             <p>{text}</p>
-            <a href={url} target="_blank" rel="noreferrer">En savoir plus <ArrowUpRight size={15} /></a>
+            <a href={url} target="_blank" rel="noreferrer">{language === "en" ? "Learn more" : "En savoir plus"} <ArrowUpRight size={15} /></a>
           </article>
         );})}
       </section>

@@ -1,0 +1,12 @@
+{
+  "seo": { "title": "Holiday cottage for 8 in Cour-Cheverny | La Vigneronne", "description": "Discover La Vigneronne, a four-bedroom character home with an enclosed garden for eight guests in Cour-Cheverny.", "shareImage": "/manus-storage/maison-exterieur_57eb8c38.jpg", "noIndex": false },
+  "hero": { "index": "01", "kicker": "The house", "title": "The comfort of a large home, the soul of a village address.", "description": "A generous former winegrower's house designed for eight guests and memorable stays together.", "image": "/manus-storage/maison-exterieur_57eb8c38.jpg", "imageAlt": "Garden view of La Maison Vigneronne", "imageCaption": "The Loire Valley through the seasons" },
+  "intro": { "kicker": "The art of welcoming", "title": "Make room for a real holiday.", "paragraphs": ["The generous proportions of this 19th-century house suit long meals, relaxed evenings and quiet moments. The ground floor brings together a welcoming lounge, dining room and open kitchen.", "The gravel courtyard is perfect for morning coffee and summer drinks. On the other side, the enclosed garden welcomes children, readers and pétanque players."], "image": "/manus-storage/maison-salle-a-manger_55bd9810.jpg", "imageAlt": "Table set in the dining room", "imageCaption": "Spaces made for enjoying time together." },
+  "comforts": { "kicker": "Thoughtful details", "title": "Everything you need, without excess.", "items": [
+    { "icon": "utensils", "title": "A kitchen for sharing", "text": "Oven, dishwasher, large fridge, air fryer and plenty of equipment for leisurely meals." },
+    { "icon": "gamepad", "title": "A place to unwind", "text": "Upstairs, a relaxation area and arcade machine bring generations together." },
+    { "icon": "shield", "title": "A private enclosed garden", "text": "Around 700 m² of enclosed, tree-lined garden with a pétanque area." },
+    { "icon": "coffee", "title": "An easy arrival", "text": "Beds made, towels provided and essentials ready so your stay starts smoothly." }
+  ] },
+  "sleep": { "image": "/manus-storage/maison-terrasse_f42d2c07.jpg", "imageAlt": "Terrace corner at the house", "kicker": "At night", "title": "Four bedrooms, so everyone can follow their own rhythm.", "rooms": ["Two bedrooms with 160 × 200 cm beds and storage.", "One bedroom with a 140 × 190 cm double bed.", "One bedroom with two 90 × 190 cm single beds.", "One bathroom with bath and shower, plus a shower room with twin basins."], "note": "Bed linen and towels are provided to make your arrival easier." }
+}

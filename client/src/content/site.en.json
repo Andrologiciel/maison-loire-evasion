@@ -1,0 +1,20 @@
+{
+  "identity": {
+    "brandLine1": "La Maison",
+    "brandLine2": "Vigneronne",
+    "location": "Cour-Cheverny · Loire Valley"
+  },
+  "navigation": {
+    "homeLabel": "The house",
+    "castlesLabel": "The castles",
+    "aroundLabel": "Around us",
+    "outdoorsLabel": "Walking & cycling",
+    "usefulLabel": "Useful places",
+    "staysLabel": "Stay ideas",
+    "leisureLabel": "Activities"
+  },
+  "footer": {
+    "tagline": "A characterful home surrounded by vineyards and castles.",
+    "note": "Routes and opening times may change: please check official websites before visiting."
+  }
+}

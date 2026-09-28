@@ -8,22 +8,9 @@ import { useState, type CSSProperties, type ReactNode } from "react";
 import { Link, useLocation } from "wouter";
 import SearchOverlay from "@/components/SearchOverlay";
 import siteContent from "@/content/site.json";
-import { customPages } from "@/lib/customPages";
-
-const coreLinks = [
-  { href: "/", label: siteContent.navigation.homeLabel },
-  { href: "/chateaux", label: siteContent.navigation.castlesLabel },
-  { href: "/autour-de-nous", label: siteContent.navigation.aroundLabel },
-  { href: "/balades", label: siteContent.navigation.outdoorsLabel },
-  { href: "/commerces-utiles", label: siteContent.navigation.usefulLabel },
-  { href: "/idees-de-sejour", label: siteContent.navigation.staysLabel },
-  { href: "/loisirs", label: siteContent.navigation.leisureLabel },
-];
-
-const customLinks = customPages
-  .filter((page) => page.showInNavigation)
-  .map((page) => ({ href: `/${page.slug}`, label: page.navigationLabel || page.title }));
-const links = [...coreLinks, ...customLinks];
+import englishSiteContent from "@/content/site.en.json";
+import { customPages, customPagesEn } from "@/lib/customPages";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 const headingFonts: Record<string, string> = {
   fraunces: '"Fraunces", Georgia, serif',
@@ -48,6 +35,7 @@ const themePresets: Record<string, { primary: string; secondary: string; text: s
 };
 
 export function ReservationButtons({ className = "" }: { className?: string }) {
+  const { text } = useLanguage();
   return (
     <div className={`reservation-buttons ${className}`}>
       <a
@@ -55,7 +43,7 @@ export function ReservationButtons({ className = "" }: { className?: string }) {
         href={siteContent.booking.airbnbUrl}
         target="_blank"
         rel="noreferrer"
-        aria-label="Réserver la Maison Vigneronne sur Airbnb"
+        aria-label={text.bookAirbnb}
       >
         <SiAirbnb className="reservation-logo" aria-hidden="true" />
         <span>Airbnb</span>
@@ -66,7 +54,7 @@ export function ReservationButtons({ className = "" }: { className?: string }) {
         href={siteContent.booking.bookingUrl}
         target="_blank"
         rel="noreferrer"
-        aria-label="Réserver la Maison Vigneronne sur Booking.com"
+        aria-label={text.bookBooking}
       >
         <SiBookingdotcom className="reservation-logo" aria-hidden="true" />
         <span>Booking.com</span>
@@ -80,6 +68,22 @@ export default function SiteLayout({ children }: { children: ReactNode }) {
   const [isOpen, setIsOpen] = useState(false);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [location] = useLocation();
+  const { language, text, localizedPath, switchLanguage } = useLanguage();
+  const translatedSite = language === "en" ? englishSiteContent : siteContent;
+  const coreLinks = [
+    { href: localizedPath("/"), label: translatedSite.navigation.homeLabel },
+    { href: localizedPath("/chateaux"), label: translatedSite.navigation.castlesLabel },
+    { href: localizedPath("/autour-de-nous"), label: translatedSite.navigation.aroundLabel },
+    { href: localizedPath("/balades"), label: translatedSite.navigation.outdoorsLabel },
+    { href: localizedPath("/commerces-utiles"), label: translatedSite.navigation.usefulLabel },
+    { href: localizedPath("/idees-de-sejour"), label: translatedSite.navigation.staysLabel },
+    { href: localizedPath("/loisirs"), label: translatedSite.navigation.leisureLabel },
+  ];
+  const activeCustomPages = language === "en" ? customPagesEn : customPages;
+  const customLinks = activeCustomPages
+    .filter((page) => page.showInNavigation)
+    .map((page) => ({ href: localizedPath(`/${page.slug}`), label: page.navigationLabel || page.title }));
+  const links = [...coreLinks, ...customLinks];
 
   const appearance = siteContent.appearance;
   const theme = siteContent.theme;
@@ -109,19 +113,19 @@ export default function SiteLayout({ children }: { children: ReactNode }) {
     >
       <header className="site-header">
         <div className="header-inner">
-          <Link href="/" className="brand" aria-label="Accueil La Maison Vigneronne">
+          <Link href={localizedPath("/")} className="brand" aria-label={text.home}>
             <img
               src={siteContent.identity.logo}
-              alt="Symbole de La Maison Vigneronne"
+              alt={language === "en" ? "La Maison Vigneronne symbol" : "Symbole de La Maison Vigneronne"}
               className="brand-mark"
             />
             <span className="brand-copy">
-              <span>{siteContent.identity.brandLine1}</span>
-              <strong>{siteContent.identity.brandLine2}</strong>
+              <span>{translatedSite.identity.brandLine1}</span>
+              <strong>{translatedSite.identity.brandLine2}</strong>
             </span>
           </Link>
 
-          <nav className="desktop-nav" aria-label="Navigation principale">
+          <nav className="desktop-nav" aria-label={text.mainNavigation}>
             {links.map((link) => (
               <Link
                 key={link.href}
@@ -133,14 +137,18 @@ export default function SiteLayout({ children }: { children: ReactNode }) {
             ))}
           </nav>
 
-          <button type="button" className="header-search" onClick={() => setIsSearchOpen(true)} aria-label="Rechercher dans le site"><Search size={17} /></button>
+          <button type="button" className="header-search" onClick={() => setIsSearchOpen(true)} aria-label={text.search}><Search size={17} /></button>
+          <div className="language-switcher" role="group" aria-label={language === "en" ? "Choose language" : "Choisir la langue"}>
+            <button type="button" className={language === "fr" ? "active" : ""} onClick={() => switchLanguage("fr")} aria-label={text.switchFrench} aria-pressed={language === "fr"}><span aria-hidden="true">🇫🇷</span><span className="language-code">FR</span></button>
+            <button type="button" className={language === "en" ? "active" : ""} onClick={() => switchLanguage("en")} aria-label={text.switchEnglish} aria-pressed={language === "en"}><span aria-hidden="true">🇬🇧</span><span className="language-code">EN</span></button>
+          </div>
           <ReservationButtons className="desktop-booking" />
 
           <button
             type="button"
             className="menu-toggle"
             aria-expanded={isOpen}
-            aria-label={isOpen ? "Fermer le menu" : "Ouvrir le menu"}
+            aria-label={isOpen ? text.closeMenu : text.openMenu}
             onClick={() => setIsOpen((open) => !open)}
           >
             {isOpen ? <X size={22} /> : <Menu size={22} />}
@@ -149,7 +157,7 @@ export default function SiteLayout({ children }: { children: ReactNode }) {
 
         {isOpen && (
           <div className="mobile-panel">
-            <nav aria-label="Navigation mobile" className="mobile-nav">
+            <nav aria-label={text.mobileNavigation} className="mobile-nav">
               {links.map((link, index) => (
                 <Link
                   key={link.href}
@@ -162,7 +170,7 @@ export default function SiteLayout({ children }: { children: ReactNode }) {
                 </Link>
               ))}
             </nav>
-            <button type="button" className="mobile-search" onClick={() => { setIsOpen(false); setIsSearchOpen(true); }}><Search size={16} /> Rechercher dans le site</button>
+            <button type="button" className="mobile-search" onClick={() => { setIsOpen(false); setIsSearchOpen(true); }}><Search size={16} /> {text.search}</button>
             <ReservationButtons className="mobile-booking" />
           </div>
         )}
@@ -176,16 +184,16 @@ export default function SiteLayout({ children }: { children: ReactNode }) {
         <div className="footer-mark">
           <img src={siteContent.identity.logo} alt="" />
           <div>
-            <p className="eyebrow">{siteContent.identity.location}</p>
-            <p className="footer-title">{siteContent.identity.brandLine1} {siteContent.identity.brandLine2}</p>
+            <p className="eyebrow">{translatedSite.identity.location}</p>
+            <p className="footer-title">{translatedSite.identity.brandLine1} {translatedSite.identity.brandLine2}</p>
           </div>
         </div>
         <div className="footer-copy">
-          <p>{siteContent.footer.tagline}</p>
+          <p>{translatedSite.footer.tagline}</p>
           <ReservationButtons className="footer-reservations" />
         </div>
         <p className="footer-note">
-          {siteContent.footer.note}
+          {translatedSite.footer.note}
         </p>
       </footer>
     </div>
