@@ -1,6 +1,6 @@
 {
   "seo": {
-    "title": "Holiday cottage in Cour-Cheverny – La Vigneronne near the Loire Valley castles",
+    "title": "Holiday cottage in Cour-Cheverny – La Vigneronne near Chambord, Beauval Zoo, the Loire Valley castles",
     "description": "Stay at La Vigneronne, a characterful holiday home for 8 guests in Cour-Cheverny, near Cheverny, Chambord, Blois and Beauval Zoo.",
     "shareImage": "/manus-storage/maison-exterieur_57eb8c38.jpg",
     "noIndex": false
@@ -23,10 +23,26 @@
   },
   "amenitiesLabel": "The house at a glance",
   "amenities": [
-    { "icon": "users", "value": "8", "label": "guests" },
-    { "icon": "bed", "value": "4", "label": "bedrooms" },
-    { "icon": "bath", "value": "2", "label": "bathrooms" },
-    { "icon": "tree", "value": "700 m²", "label": "enclosed garden" }
+    {
+      "icon": "users",
+      "value": "8",
+      "label": "guests"
+    },
+    {
+      "icon": "bed",
+      "value": "4",
+      "label": "bedrooms"
+    },
+    {
+      "icon": "bath",
+      "value": "2",
+      "label": "bathrooms"
+    },
+    {
+      "icon": "tree",
+      "value": "700 m²",
+      "label": "enclosed garden"
+    }
   ],
   "story": {
     "verticalNote": "The house · the garden · the vineyards",
@@ -56,9 +72,24 @@
     "title": "A different escape every day.",
     "introduction": "Three ways to set off from the house while staying close to what matters.",
     "items": [
-      { "to": "/chateaux", "icon": "castle", "title": "The Loire castles", "text": "Cheverny on foot, Chambord by bike, Blois and quieter historic estates." },
-      { "to": "/autour-de-nous", "icon": "wine", "title": "Within 30 kilometres", "text": "Vineyards, villages, gardens, heritage and local food for every kind of day." },
-      { "to": "/balades", "icon": "bike", "title": "Walking and cycling", "text": "Quiet lanes, Sologne paths and marked routes starting around Cheverny." }
+      {
+        "to": "/chateaux",
+        "icon": "castle",
+        "title": "The Loire castles",
+        "text": "Cheverny on foot, Chambord by bike, Blois and quieter historic estates."
+      },
+      {
+        "to": "/autour-de-nous",
+        "icon": "wine",
+        "title": "Within 30 kilometres",
+        "text": "Vineyards, villages, gardens, heritage and local food for every kind of day."
+      },
+      {
+        "to": "/balades",
+        "icon": "bike",
+        "title": "Walking and cycling",
+        "text": "Quiet lanes, Sologne paths and marked routes starting around Cheverny."
+      }
     ]
   },
   "cta": {
