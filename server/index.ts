@@ -3,6 +3,8 @@ import { createServer } from "http";
 import { readFileSync } from "fs";
 import path from "path";
 import { fileURLToPath } from "url";
+import { hostHeaderValidation, originValidation } from "@modelcontextprotocol/node";
+import { MCP_ENDPOINT, mcpHttpHandler, mcpNodeHandler } from "./mcp";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -101,7 +103,27 @@ app.use((_req, res, next) => {
 });
 
 app.get("/health", (_req, res) => {
-  res.json({ status: "ok", service: "maison-loire-evasion" });
+  res.json({ status: "ok", service: "maison-loire-evasion", mcp: MCP_ENDPOINT });
+});
+
+app.get("/mcp/info", (_req, res) => {
+  res.setHeader("Cache-Control", "public, max-age=3600");
+  res.json({
+    name: "La Maison Vigneronne",
+    endpoint: MCP_ENDPOINT,
+    transport: "Streamable HTTP",
+    access: "public-read-only",
+    tools: ["get_site_overview", "list_pages", "get_page", "search_site", "get_booking_links"],
+  });
+});
+
+const allowedMcpHosts = ["cheverny.andrologiciels.com", "localhost", "127.0.0.1", "[::1]"];
+const validateMcpHost = hostHeaderValidation(allowedMcpHosts);
+const validateMcpOrigin = originValidation(allowedMcpHosts);
+
+app.all("/mcp", (req, res) => {
+  if (!validateMcpHost(req, res) || !validateMcpOrigin(req, res)) return;
+  void mcpNodeHandler(req, res);
 });
 
 app.get("/index.html", (_req, res) => {
@@ -164,8 +186,9 @@ server.listen(port, host, () => {
   console.log(`Maison Loire Evasion listening on http://${host}:${port}`);
 });
 
-function shutdown(signal: NodeJS.Signals) {
+async function shutdown(signal: NodeJS.Signals) {
   console.log(`${signal} received, shutting down`);
+  await mcpHttpHandler.close();
   server.close((error) => {
     if (error) {
       console.error(error);

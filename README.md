@@ -67,6 +67,18 @@ Les changements Decap sont enregistrés dans GitHub. Le workflow de déploiement
 connecte ensuite au VPS sur le port 9922, met à jour `/opt/maison-loire-evasion`,
 reconstruit le site et redémarre PM2 automatiquement.
 
+## Serveur MCP pour les assistants IA
+
+Le site expose ses informations publiques en français et en anglais à l'adresse
+`https://cheverny.andrologiciels.com/mcp` avec le transport Streamable HTTP.
+Le serveur est en lecture seule et ne donne accès ni à Decap, ni à GitHub, ni aux
+secrets du VPS. Consultez [la documentation de connexion](docs/MCP.md) pour la
+liste des outils, les exemples de configuration et les commandes de test.
+
+```bash
+pnpm test:mcp
+```
+
 ## Exemple NGINX
 
 ```nginx
