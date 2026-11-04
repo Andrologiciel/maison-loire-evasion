@@ -67,4 +67,4 @@ jobs:
             exit 1
           fi
           PORT="${VPS_PORT:-9922}"
-          ssh -p "$PORT" "$VPS_USER@$VPS_HOST" 'bash -lc "cd /opt/maison-loire-evasion && git pull --ff-only origin main && corepack pnpm install --frozen-lockfile && corepack pnpm build && pm2 restart maison-loire-evasion --update-env && pm2 save && curl --fail --silent http://127.0.0.1:3000/health >/dev/null && curl --fail --silent http://127.0.0.1:3000/mcp/info >/dev/null"'
+          ssh -p "$PORT" "$VPS_USER@$VPS_HOST" 'bash -lc "cd /opt/maison-loire-evasion && git pull --ff-only origin main && corepack pnpm install --frozen-lockfile && corepack pnpm build && pm2 restart maison-loire-evasion --update-env && pm2 save && curl --retry 15 --retry-delay 2 --retry-connrefused --fail --silent --show-error http://127.0.0.1:3000/health >/dev/null && curl --retry 15 --retry-delay 2 --retry-connrefused --fail --silent --show-error http://127.0.0.1:3000/mcp/info >/dev/null"'
