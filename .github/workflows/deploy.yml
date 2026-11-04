@@ -9,7 +9,36 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Enable pnpm
+        run: |
+          corepack enable
+          corepack prepare pnpm@10.4.1 --activate
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: TypeScript check
+        run: pnpm check
+
+      - name: MCP protocol tests
+        run: pnpm test:mcp
+
+      - name: Production build
+        run: pnpm build
+
   deploy:
+    needs: validate
     runs-on: ubuntu-latest
     steps:
       - name: Prepare SSH
@@ -38,4 +67,4 @@ jobs:
             exit 1
           fi
           PORT="${VPS_PORT:-9922}"
-          ssh -p "$PORT" "$VPS_USER@$VPS_HOST" 'bash -lc "cd /opt/maison-loire-evasion && git pull --ff-only origin main && pnpm install --frozen-lockfile && pnpm build && pm2 restart maison-loire-evasion --update-env && pm2 save"'
+          ssh -p "$PORT" "$VPS_USER@$VPS_HOST" 'bash -lc "cd /opt/maison-loire-evasion && git pull --ff-only origin main && corepack pnpm install --frozen-lockfile && corepack pnpm build && pm2 restart maison-loire-evasion --update-env && pm2 save && curl --fail --silent http://127.0.0.1:3000/health >/dev/null && curl --fail --silent http://127.0.0.1:3000/mcp/info >/dev/null"'
